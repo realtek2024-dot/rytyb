@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маркет × SmartSplit — Витрина цен ниже рынка</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #09090B;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .ym-red-header {
+            background: linear-gradient(125deg, #FF2A1F 0%, #FF6A00 45%, #D92B1E 75%, #FF8C00 100%);
+            background-size: 240% 240%;
+            animation: fieryHeaderShift 7s ease-in-out infinite;
+        }
+        @keyframes fieryHeaderShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .ym-plus-gradient {
+            background: linear-gradient(90deg, #FF5CA8 0%, #A855F7 50%, #38BDF8 100%);
+        }
+        .ss-gradient-btn {
+            background: linear-gradient(90deg, #9F8BFF 0%, #B794F4 50%, #A78BFA 100%);
+        }
+        .ss-hero-bg {
+            background:
+                repeating-linear-gradient(125deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 26px),
+                radial-gradient(circle at 75% 25%, rgba(139, 92, 246, 0.45) 0%, transparent 55%),
+                radial-gradient(circle at 20% 45%, rgba(56, 189, 248, 0.25) 0%, transparent 50%),
+                linear-gradient(180deg, #271E4A 0%, #1C1538 55%, #120E24 100%);
+        }
+        .btn-spring {
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+        }
+        .btn-spring:active {
+            transform: scale(0.95);
+        }
+        @keyframes smoothFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(14px) scale(0.985);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes modalPopIn {
+            0% {
+                opacity: 0;
+                transform: translateY(24px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-fade-in {
+            animation: smoothFadeUp 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .animate-modal-in {
+            animation: modalPopIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center bg-[#09090B]">
+    <div id="app-shell" class="w-full max-w-md min-h-screen bg-[#121212] relative flex flex-col shadow-2xl border-x border-white/5">
+
+        <!-- ==================== СТАРТОВЫЙ ЭКРАН SMARTSPLIT ==================== -->
+        <div id="welcome-screen" class="fixed inset-0 z-50 flex justify-center bg-[#09090B]/95 backdrop-blur-md transition-opacity duration-300">
+            <div class="w-full max-w-md min-h-screen ss-hero-bg flex flex-col justify-between overflow-y-auto">
+                <!-- Верхняя декоративная зона как на скриншоте -->
+                <div class="px-5 pt-5 pb-4 relative">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <!-- Фирменный логотип SmartSplit -->
+                            <div class="w-11 h-11 rounded-2xl bg-[#131026] border border-purple-400/30 flex items-center justify-center shadow-lg">
+                                <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="ssLogoGrad" x1="4" y1="4" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#2EE59D"/>
+                                            <stop offset="50%" stop-color="#38BDF8"/>
+                                            <stop offset="100%" stop-color="#A855F7"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M25.5 11.5C25.5 8.8 22.4 7 18 7C13.6 7 10.5 9 10.5 12C10.5 15.2 13.8 16.4 18.2 17.4C22.6 18.4 26 19.8 26 23.5C26 27 22.5 29 17.8 29C13.1 29 10 26.9 10 23.8" stroke="url(#ssLogoGrad)" stroke-width="4.2" stroke-linecap="round"/>
+                                    <circle cx="27.5" cy="9.5" r="2.5" fill="#2EE59D"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-base font-extrabold text-white leading-tight">SmartSplit</div>
+                                <div class="text-xs text-purple-200/80">официальный магазин в Telegram</div>
+                            </div>
+                        </div>
+                        <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-purple-200 hover:bg-white/15 transition">
+                            @Smart_Split
+                        </a>
+                    </div>
+
+                    <!-- Плавающая плашка моделей -->
+                    <div class="flex justify-end mb-1">
+                        <div class="px-3.5 py-2 rounded-full bg-[#241D45]/90 border border-purple-300/20 backdrop-blur-md text-xs font-bold text-white shadow-lg flex items-center gap-1.5">
+                            <span>✨</span>
+                            <span id="welcome-models-count">22 модели в каталоге</span>
+                        </div>
+                    </div>
+
+                    <!-- Крупный водяной знак SS с бейджем категорий -->
+                    <div class="relative flex items-center justify-center py-2 select-none">
+                        <div class="text-[104px] font-black leading-none tracking-tighter bg-gradient-to-b from-white via-purple-200 to-purple-400/20 bg-clip-text text-transparent">
+                            SS
+                        </div>
+                        <div class="absolute right-6 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-full bg-[#2A2250]/95 border border-purple-300/25 text-xs font-bold text-white shadow-xl flex items-center gap-1.5">
+                            <span>🛍️</span>
+                            <span>4 категории</span>
+                        </div>
+                    </div>
+
+                    <!-- Плавающие бейджи доставки и оплаты -->
+                    <div class="space-y-2.5 mt-1">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#241D45]/90 border border-purple-300/20 text-xs font-bold text-white shadow">
+                            <span>📍</span>
+                            <span>57048 пунктов выдачи</span>
+                        </div>
+                        <div class="flex flex-col items-start gap-2">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#241D45]/90 border border-purple-300/20 text-xs font-bold text-white shadow">
+                                <span>⚡</span>
+                                <span>доставка 2–7 дней</span>
+                            </div>
+                            <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#241D45]/90 border border-purple-300/20 text-xs font-bold text-white shadow">
+                                <span>💳</span>
+                                <span>оплата криптовалютой · переводом</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Нижняя карточка приветствия как на скриншоте -->
+                <div class="bg-[#231B42]/95 border-t border-purple-300/20 rounded-t-[32px] px-5 pt-6 pb-7 shadow-2xl">
+                    <div class="text-[11px] font-extrabold tracking-[0.16em] text-purple-200/80 uppercase">
+                        ДОБРО ПОЖАЛОВАТЬ
+                    </div>
+                    <h1 class="text-4xl font-black tracking-tight text-white mt-0.5">
+                        SmartSplit<span class="text-[#A855F7]">.</span>
+                    </h1>
+                    <p class="text-sm text-purple-100/85 mt-2.5 leading-relaxed">
+                        Магазин электроники: iPhone, Android, комплектующие ПК и умные очки Ray-Ban Meta
+                    </p>
+
+                    <div class="space-y-3 mt-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-400/20 border border-purple-300/25 text-purple-200 flex items-center justify-center shrink-0 font-bold text-xs">₽</div>
+                            <p class="text-xs text-purple-100 font-medium">Цены и наличие — те, что подтвердил магазин</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-400/20 border border-purple-300/25 text-purple-200 flex items-center justify-center shrink-0 font-bold text-xs">✓</div>
+                            <p class="text-xs text-purple-100 font-medium">Выкуп через наши аккаунты Сплит и оплату частями WB</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-400/20 border border-purple-300/25 text-purple-200 flex items-center justify-center shrink-0 font-bold text-xs">🔒</div>
+                            <p class="text-xs text-purple-100 font-medium">Данные банковских карт в приложении не хранятся</p>
+                        </div>
+                    </div>
+
+                    <button onclick="enterApp()" class="w-full py-4 mt-6 rounded-2xl ss-gradient-btn text-[#120E24] font-extrabold text-base shadow-xl btn-spring">
+                        Начать
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ВКЛАДКА 1: ГЛАВНАЯ ==================== -->
+        <div id="tab-home" class="tab-content flex-1 flex flex-col pb-24">
+            <div class="ym-red-header px-3.5 pt-3 pb-4 rounded-b-3xl shadow-lg">
+                <!-- Фирменная плашка бренда SmartSplit с логотипом -->
+                <div class="flex items-center justify-between bg-black/25 backdrop-blur-md border border-white/15 rounded-2xl px-3 py-2 mb-2.5">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-xl bg-[#131026] border border-purple-300/30 flex items-center justify-center shrink-0">
+                            <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M25.5 11.5C25.5 8.8 22.4 7 18 7C13.6 7 10.5 9 10.5 12C10.5 15.2 13.8 16.4 18.2 17.4C22.6 18.4 26 19.8 26 23.5C26 27 22.5 29 17.8 29C13.1 29 10 26.9 10 23.8" stroke="#2EE59D" stroke-width="4.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-black tracking-tight text-white">SmartSplit<span class="text-[#2EE59D]">.</span></span>
+                    </div>
+                    <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="text-[11px] font-bold text-white/95 bg-white/15 px-2.5 py-1 rounded-full hover:bg-white/25 transition">
+                        Менеджер @Smart_Split
+                    </a>
+                </div>
+
+                <div class="flex items-center justify-between text-white text-xs mb-3">
+                    <button onclick="openPvzModal()" class="flex items-center gap-1.5 font-medium truncate max-w-[72%] text-left btn-spring">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0 text-white/90"></i>
+                        <span id="header-pvz-text" class="truncate">ПВЗ WB: Москва, Фрунзенская набережная 50</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 shrink-0 opacity-80"></i>
+                    </button>
+                    <button onclick="openAiAssistant()" class="bg-white text-[#121212] font-bold px-2.5 py-1 rounded-full text-[11px] flex items-center gap-1 shadow btn-spring">
+                        <span>ИИ-чат</span>
+                        <span class="w-2 h-2 rounded-full bg-[#2EE59D]"></span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-5 gap-1.5 text-center text-white mb-3.5">
+                    <button onclick="filterCategory('all')" class="flex flex-col items-center gap-1 btn-spring">
+                        <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                            <i data-lucide="package" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-[11px] font-medium">Витрина</span>
+                    </button>
+                    <button onclick="filterCategory('iphone')" class="flex flex-col items-center gap-1 btn-spring">
+                        <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                            <i data-lucide="smartphone" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-[11px] font-medium">Смартфоны</span>
+                    </button>
+                    <button onclick="filterCategory('pc')" class="flex flex-col items-center gap-1 btn-spring">
+                        <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-[11px] font-medium">GPU / CPU</span>
+                    </button>
+                    <button onclick="filterCategory('monitors')" class="flex flex-col items-center gap-1 btn-spring">
+                        <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                            <i data-lucide="monitor" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-[11px] font-medium">Экраны</span>
+                    </button>
+                    <button onclick="filterCategory('peripherals')" class="flex flex-col items-center gap-1 btn-spring">
+                        <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                            <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-[11px] font-medium">Рули / Очки</span>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="filterCategory('all')" class="w-11 h-11 rounded-full bg-white text-[#121212] flex items-center justify-center shrink-0 shadow btn-spring">
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                    </button>
+                    <div class="flex-1 h-11 rounded-full bg-white px-3.5 flex items-center gap-2 shadow">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-500 shrink-0"></i>
+                        <input id="search-input" type="text" oninput="handleSearch(this.value)" placeholder="Найти iPhone, RTX, руль..." class="w-full bg-transparent text-sm text-[#121212] placeholder-gray-500 focus:outline-none">
+                        <button onclick="clearSearch()" id="clear-search-btn" class="hidden text-gray-400 hover:text-gray-700">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <button onclick="openAiAssistant()" class="w-11 h-11 rounded-full bg-white text-[#121212] flex items-center justify-center shrink-0 shadow btn-spring">
+                        <span class="w-5 h-5 rounded-full border-2 border-[#121212] flex items-center justify-center">
+                            <span class="w-2 h-2 rounded-full bg-[#121212]"></span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="mt-3.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-3 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-extrabold tracking-tight">ВЫКУП В 3–4 РАЗА ДЕШЕВЛЕ</div>
+                        <div class="text-[11px] text-white/90">Через наши аккаунты Сплит и WB части • Цвет и ГБ в карточке</div>
+                    </div>
+                    <button onclick="openAiAssistant()" class="px-3 py-1.5 rounded-xl bg-white text-[#121212] font-bold text-xs shrink-0 btn-spring">
+                        Спросить ИИ
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex gap-2 px-3.5 pt-3 pb-2 overflow-x-auto no-scrollbar">
+                <button onclick="filterCategory('all')" data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-[#121212] shrink-0 btn-spring">Все товары</button>
+                <button onclick="filterCategory('iphone')" data-cat="iphone" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#222222] text-gray-300 shrink-0 btn-spring">iPhone 15–18 / Fold / Galaxy</button>
+                <button onclick="filterCategory('pc')" data-cat="pc" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#222222] text-gray-300 shrink-0 btn-spring">Видеокарты и CPU</button>
+                <button onclick="filterCategory('monitors')" data-cat="monitors" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#222222] text-gray-300 shrink-0 btn-spring">Мониторы и Ноутбуки</button>
+                <button onclick="filterCategory('peripherals')" data-cat="peripherals" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#222222] text-gray-300 shrink-0 btn-spring">Рули, Ray-Ban, мыши, клавы</button>
+            </div>
+
+            <div class="px-3.5 pt-1">
+                <div class="flex items-center justify-between mb-2.5">
+                    <h2 id="catalog-heading" class="text-base font-bold">Популярное со скидками</h2>
+                    <span id="catalog-count" class="text-xs text-gray-400">28 товаров</span>
+                </div>
+                <div id="products-grid" class="grid grid-cols-2 gap-2.5"></div>
+            </div>
+        </div>
+
+        <!-- ==================== ВКЛАДКА 2: ИЗБРАННОЕ ==================== -->
+        <div id="tab-favorites" class="tab-content hidden flex-1 flex-col px-3.5 pt-4 pb-24">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-xl font-bold">Избранное</h1>
+                <span id="fav-count-label" class="text-xs text-gray-400">0 товаров</span>
+            </div>
+            <div id="favorites-grid" class="grid grid-cols-2 gap-2.5"></div>
+            <div id="favorites-empty" class="hidden flex-1 flex-col items-center justify-center text-center py-16">
+                <div class="w-16 h-16 rounded-full bg-[#1E1E1E] flex items-center justify-center mb-3 text-gray-500">
+                    <i data-lucide="heart" class="w-8 h-8"></i>
+                </div>
+                <p class="font-semibold text-gray-300">В избранном пока пусто</p>
+                <p class="text-xs text-gray-500 mt-1 max-w-[240px]">Нажмите сердечко на карточке товара, чтобы сохранить модель</p>
+                <button onclick="switchTab('home')" class="mt-4 px-5 py-2.5 rounded-full bg-[#FFCC00] text-black font-bold text-xs btn-spring">
+                    Перейти в каталог
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== ВКЛАДКА 3: КОРЗИНА И ОФОРМЛЕНИЕ ==================== -->
+        <div id="tab-cart" class="tab-content hidden flex-1 flex-col px-3.5 pt-4 pb-28">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Корзина.</h1>
+                    <button onclick="openPvzModal()" class="text-xs text-purple-300 flex items-center gap-1 mt-0.5 hover:underline">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                        <span id="cart-top-pvz">ПВЗ WB: Москва, Фрунзенская набережная 50</span>
+                    </button>
+                </div>
+                <span id="cart-count-title" class="text-xs text-purple-200 bg-[#231D3B] px-3 py-1 rounded-full font-semibold">0 шт.</span>
+            </div>
+
+            <div id="cart-empty" class="hidden flex-1 flex-col items-center justify-center text-center py-12">
+                <div class="w-16 h-16 rounded-full bg-[#1E1E1E] flex items-center justify-center mb-3 text-gray-500">
+                    <i data-lucide="shopping-basket" class="w-8 h-8"></i>
+                </div>
+                <p class="font-bold text-lg">Корзина пустая</p>
+                <p class="text-xs text-gray-400 mt-1 max-w-[250px]">Выберите товар в каталоге — цвет и гигабайты можно задать внутри карточки</p>
+                <button onclick="switchTab('home')" class="mt-4 px-6 py-3 rounded-2xl bg-[#FFCC00] text-black font-bold text-sm btn-spring">
+                    К товарам
+                </button>
+            </div>
+
+            <div id="cart-filled" class="space-y-3.5">
+                <div id="cart-items-list" class="space-y-2.5"></div>
+
+                <!-- Как устроен выкуп -->
+                <div class="bg-[#1B162E] border border-purple-400/20 rounded-3xl p-4 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-extrabold text-purple-200">Как работает выкуп SmartSplit</h3>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#2EE59D]/15 text-[#2EE59D] font-bold">Сплит + WB части</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Мы закупаем аккаунты со Сплитом и оплатой частями WB и проводим оформление на наших аккаунтах. Вам остаётся выбрать товар, цвет и память, указать адрес ПВЗ и оплатить заказ.
+                    </p>
+                </div>
+
+                <!-- Доставка и ПВЗ -->
+                <div class="bg-[#1B162E] border border-purple-400/15 rounded-3xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-extrabold">Доставка</h3>
+                        <span class="text-xs font-bold text-[#2EE59D]">бесплатно</span>
+                    </div>
+
+                    <div class="bg-[#251E40] border border-purple-400/30 rounded-2xl p-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <span id="cart-delivery-method-title" class="font-bold text-xs text-white">Пункт выдачи Wildberries</span>
+                            <span class="text-[11px] text-purple-200 font-semibold">2–4 дня</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            Заберите заказ в выбранном пункте выдачи. Обязательно укажите точный адрес ПВЗ.
+                        </p>
+                    </div>
+
+                    <div class="bg-[#151126] border border-white/10 rounded-2xl p-3">
+                        <div class="text-[10px] uppercase tracking-wider text-purple-300 font-bold mb-1">АДРЕС ПУНКТА ВЫДАЧИ</div>
+                        <div id="cart-pvz-address" class="text-xs font-bold text-white">Москва, Фрунзенская набережная 50</div>
+                        <div id="cart-pvz-eta" class="text-[11px] text-purple-300 mt-1">Доставка в выбранный ПВЗ Wildberries / Яндекс Маркет</div>
+                        <button onclick="openPvzModal()" class="mt-2.5 px-4 py-2 rounded-xl bg-[#2B234A] hover:bg-[#352B5B] text-xs font-bold text-white btn-spring">
+                            Изменить ПВЗ или открыть карту
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Оплата: Криптовалюта с автопересчётом в несколько монет или Рубли у @ww_woun -->
+                <div class="bg-[#1B162E] border border-purple-400/15 rounded-3xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-extrabold">Оплата</h3>
+                        <span class="text-[10px] text-purple-300 bg-purple-500/15 px-2 py-0.5 rounded-full">Сплит / WB через наши акк</span>
+                    </div>
+
+                    <div onclick="selectPaymentMethod('crypto')" id="pay-card-crypto" class="bg-[#141024] border-2 border-purple-400 rounded-2xl p-3.5 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-sm text-white">Криптовалютой</span>
+                            <span class="w-4 h-4 rounded-full border-4 border-purple-400 bg-white"></span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                            Выберите криптовалюту — сумма пересчитывается сразу автоматически. После перевода укажите хэш транзакции (TXID).
+                        </p>
+
+                        <div onclick="event.stopPropagation()" class="grid grid-cols-4 gap-1.5 mb-2.5">
+                            <button type="button" onclick="selectCryptoAsset('USDT')" data-crypto="USDT" class="crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-extrabold bg-purple-500 text-white border border-purple-300/40 btn-spring">USDT</button>
+                            <button type="button" onclick="selectCryptoAsset('TON')" data-crypto="TON" class="crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-bold bg-[#1D1833] text-gray-300 border border-white/10 btn-spring">TON</button>
+                            <button type="button" onclick="selectCryptoAsset('BTC')" data-crypto="BTC" class="crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-bold bg-[#1D1833] text-gray-300 border border-white/10 btn-spring">BTC</button>
+                            <button type="button" onclick="selectCryptoAsset('SOL')" data-crypto="SOL" class="crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-bold bg-[#1D1833] text-gray-300 border border-white/10 btn-spring">SOL</button>
+                        </div>
+
+                        <div onclick="event.stopPropagation()" class="bg-[#1B1630] border border-purple-400/20 rounded-xl p-2.5 mb-2.5 space-y-1.5">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-400">К оплате (<span id="crypto-selected-name" class="text-white font-bold">USDT</span>):</span>
+                                <span id="cart-crypto-amount" class="text-sm font-extrabold text-[#2EE59D]">0.00 USDT</span>
+                            </div>
+                            <div id="crypto-all-conversions" class="text-[10px] text-purple-200/90 leading-snug border-t border-white/10 pt-1.5">
+                                ≈ 0.00 USDT • 0.00 TON • 0.000000 BTC • 0.000 SOL
+                            </div>
+                        </div>
+
+                        <div onclick="event.stopPropagation()" class="space-y-2 pt-2 border-t border-white/10">
+                            <div class="flex items-center justify-between bg-[#1D1833] px-3 py-2 rounded-xl text-[11px]">
+                                <span class="text-gray-300 font-mono truncate mr-2">UQBWTp6_C_erFq9J_nFeLH6LqW_n2jPnfgp9ijUA7IkuAkIF</span>
+                                <button type="button" onclick="copyCryptoAddress()" class="text-purple-300 font-bold shrink-0 hover:text-white">Копировать</button>
+                            </div>
+                            <input id="txid-input" type="text" placeholder="Вставьте хэш транзакции (TXID) после перевода" class="w-full bg-[#1D1833] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-400">
+                        </div>
+                    </div>
+
+                    <div onclick="selectPaymentMethod('rub')" id="pay-card-rub" class="bg-[#141024] border border-white/10 rounded-2xl p-3.5 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-bold text-sm text-white">Рублями — реквизиты у менеджера</span>
+                            <span id="pay-radio-rub" class="w-4 h-4 rounded-full border border-gray-500"></span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-2">
+                            Менеджер <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="text-[#2EE59D] font-bold underline">@Smart_Split</a> пришлёт реквизиты для перевода в Telegram. Заказ считается оплаченным после подтверждения менеджером.
+                        </p>
+                        <div class="flex items-center justify-between bg-[#1D1833] px-3 py-2 rounded-xl text-[11px] mb-2" onclick="event.stopPropagation()">
+                            <span class="text-purple-200 font-semibold">Менеджер: @Smart_Split</span>
+                            <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold">
+                                Написать @Smart_Split
+                            </a>
+                        </div>
+                        <div id="rub-contact-box" onclick="event.stopPropagation()" class="hidden mt-2 pt-2 border-t border-white/10">
+                            <input id="tg-username-input" type="text" placeholder="Ваш @username в Telegram для получения реквизитов" class="w-full bg-[#1D1833] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Комментарий -->
+                <div class="bg-[#1B162E] border border-purple-400/15 rounded-3xl p-4">
+                    <h3 class="text-sm font-extrabold mb-2">Комментарий</h3>
+                    <textarea id="order-comment" rows="2" placeholder="Необязательно: пожелания к заказу, цвет/память, удобное время связи" class="w-full bg-[#141024] border border-white/10 rounded-2xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-400"></textarea>
+                </div>
+
+                <!-- Промокод -->
+                <div class="bg-[#1B162E] border border-purple-400/15 rounded-3xl p-4">
+                    <h3 class="text-sm font-extrabold mb-2">Промокод</h3>
+                    <div class="flex gap-2">
+                        <input id="promo-input" type="text" placeholder="НАПРИМЕР, SMART1" class="flex-1 bg-[#141024] border border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 uppercase focus:outline-none focus:border-purple-400">
+                        <button onclick="applyPromo()" class="px-4 py-2.5 rounded-2xl bg-[#2A2248] hover:bg-[#352B5B] text-xs font-bold text-purple-200 btn-spring">
+                            Применить
+                        </button>
+                    </div>
+                    <p id="promo-status" class="text-[11px] text-[#2EE59D] mt-1.5 hidden"></p>
+                </div>
+
+                <!-- Итого -->
+                <div class="bg-[#1B162E] border border-purple-400/15 rounded-3xl p-4 space-y-2.5">
+                    <div class="flex justify-between text-xs text-gray-300">
+                        <span>Товары</span>
+                        <span id="cart-items-subtotal">0 ₽</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-[#2EE59D]">
+                        <span>Выгода от рынка</span>
+                        <span id="cart-savings">-0 ₽</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-300">
+                        <span>Доставка</span>
+                        <span class="text-[#2EE59D] font-semibold">бесплатно</span>
+                    </div>
+                    <div class="border-t border-white/10 pt-2.5 flex justify-between items-baseline">
+                        <span class="text-base font-extrabold">Итого</span>
+                        <span id="cart-final-total" class="text-xl font-extrabold text-purple-300">0 ₽</span>
+                    </div>
+
+                    <label class="flex items-start gap-2.5 pt-2 cursor-pointer">
+                        <input id="agree-terms-checkbox" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-purple-500">
+                        <span class="text-[11px] text-gray-300 leading-snug">
+                            Я ознакомился с условиями покупки и возврата и указал корректный адрес ПВЗ
+                        </span>
+                    </label>
+
+                    <button onclick="checkoutOrder()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg btn-spring">
+                        Оформить заказ
+                    </button>
+                </div>
+
+                <!-- Блок проверки заказа по номеру и истории заказов -->
+                <div class="bg-[#1B162E] border border-purple-400/20 rounded-3xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-extrabold text-white">Пробить заказ по номеру</h3>
+                        <span class="text-[10px] text-[#2EE59D] font-bold">Трекинг SmartSplit</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="track-order-input" type="text" placeholder="Например: SS-482910" class="flex-1 bg-[#141024] border border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 uppercase focus:outline-none focus:border-purple-400">
+                        <button type="button" onclick="lookupOrderByNumber()" class="px-4 py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white btn-spring">
+                            Пробить
+                        </button>
+                    </div>
+                    <div id="track-order-result" class="hidden bg-[#141024] border border-purple-400/25 rounded-2xl p-3 text-xs space-y-1.5"></div>
+                    <div id="orders-history-list" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ВКЛАДКА 4: ПРОФИЛЬ TELEGRAM ==================== -->
+        <div id="tab-profile" class="tab-content hidden flex-1 flex-col px-3.5 pt-4 pb-24">
+            <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="openProfileModal()" class="relative w-12 h-12 rounded-full p-[2px] ym-plus-gradient btn-spring shrink-0">
+                        <img id="tg-profile-avatar" src="" alt="Telegram Avatar" class="w-full h-full rounded-full object-cover bg-[#121212]">
+                        <span class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-purple-600 border border-[#121212] flex items-center justify-center text-[9px] font-bold">✎</span>
+                    </button>
+                    <div>
+                        <h2 id="tg-profile-name" class="font-bold text-base leading-tight">Ник Telegram</h2>
+                        <button type="button" onclick="openProfileModal()" class="text-xs text-purple-300 flex items-center gap-0.5 hover:underline">
+                            <span id="tg-profile-handle">@telegram_user</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-full bg-[#25203B] border border-purple-400/30 text-purple-200 font-bold text-xs btn-spring">
+                        @Smart_Split
+                    </a>
+                    <button onclick="openAiAssistant()" class="w-9 h-9 rounded-full bg-[#252525] flex items-center justify-center btn-spring">
+                        <i data-lucide="bot" class="w-4 h-4 text-[#2EE59D]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 mb-3">
+                <div class="bg-[#222222] rounded-2xl p-3.5 flex flex-col justify-between min-h-[104px]">
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-[#2EE59D] text-[#081A12] font-black text-xs flex items-center justify-center">S</span>
+                        <span class="font-extrabold text-base">50 000 ₽</span>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-300 font-medium">Лимит Сплит / WB</div>
+                        <div class="text-[10px] text-gray-500">Выкуп через наши аккаунты</div>
+                    </div>
+                </div>
+                <div class="bg-[#222222] rounded-2xl p-3.5 flex flex-col justify-between min-h-[104px]">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-purple-200">Менеджер TG</span>
+                        <span class="text-[10px] text-[#2EE59D]">онлайн</span>
+                    </div>
+                    <div>
+                        <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="text-sm font-extrabold text-white underline">@Smart_Split</a>
+                        <div class="text-[10px] text-gray-400 mt-0.5">Скриншоты и точное время прибытия</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#1D1D1D] rounded-2xl overflow-hidden divide-y divide-white/5 mb-3">
+                <button onclick="switchTab('cart')" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-white/5 btn-spring">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="package" class="w-5 h-5 text-gray-300"></i>
+                        <span class="text-sm font-medium">Мои заказы и проверка по номеру</span>
+                    </div>
+                    <span id="profile-orders-badge" class="text-xs font-bold text-[#2EE59D]">1</span>
+                </button>
+                <button onclick="openPvzModal()" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-white/5 btn-spring">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-gray-300"></i>
+                        <span class="text-sm font-medium">Адрес ПВЗ и карта</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+                </button>
+                <button onclick="openProfileModal()" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-white/5 btn-spring">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="user-check" class="w-5 h-5 text-gray-300"></i>
+                        <span class="text-sm font-medium">Указать свой ник и аватарку Telegram</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+                </button>
+                <button onclick="openAiAssistant()" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-white/5 btn-spring">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="bot" class="w-5 h-5 text-gray-300"></i>
+                    <span class="text-sm font-medium">ИИ-консультант по товарам</span>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
+            </button>
+            <button onclick="openAnalyticsModal()" class="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-white/5 btn-spring">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="activity" class="w-5 h-5 text-[#2EE59D]"></i>
+                    <div>
+                        <span class="text-sm font-medium block">Live-аналитика и логи в Telegram</span>
+                        <span class="text-[10px] text-gray-400">Онлайн посетители, просмотры за день, вебхук в ТГ</span>
+                    </div>
+                </div>
+                <span id="profile-live-online" class="px-2 py-0.5 rounded-full bg-[#2EE59D]/15 text-[#2EE59D] text-[11px] font-bold">1 онлайн</span>
+            </button>
+        </div>
+    </div>
+
+        <!-- ==================== НИЖНЯЯ НАВИГАЦИЯ ==================== -->
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-[#181818]/95 backdrop-blur-md border-t border-white/10 px-2 py-2 flex items-center justify-around z-30">
+            <button onclick="switchTab('home')" data-nav="home" class="nav-btn flex flex-col items-center gap-1 px-3 py-1 text-white btn-spring">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Главная</span>
+            </button>
+            <button onclick="openAiAssistant()" class="nav-btn flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white btn-spring">
+                <i data-lucide="bot" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">ИИ</span>
+            </button>
+            <button onclick="switchTab('favorites')" data-nav="favorites" class="nav-btn relative flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white btn-spring">
+                <i data-lucide="heart" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Избранное</span>
+                <span id="nav-fav-badge" class="hidden absolute top-0.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#FF4B2B] text-white text-[10px] font-bold flex items-center justify-center">0</span>
+            </button>
+            <button onclick="switchTab('cart')" data-nav="cart" class="nav-btn relative flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white btn-spring">
+                <i data-lucide="shopping-basket" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Корзина</span>
+                <span id="nav-cart-badge" class="hidden absolute top-0.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#FFCC00] text-black text-[10px] font-extrabold flex items-center justify-center">0</span>
+            </button>
+            <button onclick="switchTab('profile')" data-nav="profile" class="nav-btn flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white btn-spring">
+                <i data-lucide="user" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Профиль</span>
+            </button>
+        </nav>
+
+        <!-- ==================== МОДАЛЬНОЕ ОКНО ТОВАРА ==================== -->
+        <div id="product-modal" class="fixed inset-0 z-40 hidden flex-col bg-[#121212] overflow-y-auto max-w-md mx-auto">
+            <div class="sticky top-0 z-20 flex items-center justify-between px-3.5 py-3 bg-[#121212]/90 backdrop-blur-md border-b border-white/5">
+                <button onclick="closeProductModal()" class="w-10 h-10 rounded-full bg-[#222222] flex items-center justify-center btn-spring">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="openAiAssistant()" class="px-3 py-2 rounded-full bg-[#222222] text-xs font-bold text-[#2EE59D] flex items-center gap-1.5 btn-spring">
+                        <i data-lucide="bot" class="w-4 h-4"></i>
+                        <span>ИИ по товару</span>
+                    </button>
+                    <button id="modal-fav-btn" class="w-10 h-10 rounded-full bg-[#222222] flex items-center justify-center btn-spring">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative bg-[#1B1B1E] mx-3.5 mt-3 rounded-3xl overflow-hidden flex items-center justify-center min-h-[260px]">
+                <span id="modal-discount-badge" class="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-[#27C96B] text-[#071B10] font-extrabold text-xs">-97%</span>
+                <img id="modal-img" src="" alt="" class="w-full max-h-[280px] object-contain p-4">
+            </div>
+
+            <div class="px-3.5 mt-4">
+                <div class="flex items-center gap-2 text-xs text-gray-400 mb-1">
+                    <span class="flex items-center gap-1 text-amber-400 font-bold">★ <span id="modal-rating">5.0</span></span>
+                    <span>•</span>
+                    <span id="modal-reviews-count-top">16 отзывов</span>
+                    <span>•</span>
+                    <span class="text-[#2EE59D]">В наличии</span>
+                </div>
+                <h1 id="modal-title" class="text-lg font-bold leading-snug mb-3">Название товара</h1>
+
+                <!-- Выбор цвета и ГБ внутри карточки -->
+                <div class="bg-[#1E1E1E] rounded-2xl p-4 mb-3 border border-white/5 space-y-3">
+                    <div>
+                        <p class="text-xs text-gray-400 mb-2">Цвет: <span id="modal-selected-color-label" class="text-white font-bold"></span></p>
+                        <div id="modal-colors-list" class="flex flex-wrap gap-2"></div>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 mb-2">Память / комплектация: <span id="modal-selected-storage-label" class="text-white font-bold"></span></p>
+                        <div id="modal-storage-list" class="flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E1E1E] rounded-2xl p-4 mb-3 border border-white/5">
+                    <div class="flex items-baseline gap-2.5 flex-wrap">
+                        <span id="modal-price" class="text-2xl font-extrabold text-[#27C96B]">0 ₽</span>
+                        <span class="text-xs font-bold text-[#27C96B] bg-[#27C96B]/15 px-2 py-0.5 rounded-md">SS • Выкуп</span>
+                        <span id="modal-old-price" class="text-sm text-gray-500 line-through">0 ₽</span>
+                        <span id="modal-discount-text" class="text-xs font-bold text-[#2EE59D]">-97%</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1.5">Оформление на наших аккаунтах Сплит и ВБ оплата частями • Итоговая цена <span id="modal-split-sub" class="text-white font-semibold">0 ₽</span></p>
+                </div>
+
+                <div class="bg-[#1E1E1E] rounded-2xl p-4 mb-3 border border-white/5">
+                    <h3 class="text-sm font-bold mb-1.5">Характеристики и описание</h3>
+                    <p id="modal-desc" class="text-xs text-gray-300 leading-relaxed"></p>
+                </div>
+
+                <div class="bg-[#1E1E1E] rounded-2xl p-4 border border-white/5">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold">Отзывы покупателей</h3>
+                        <span id="modal-reviews-badge" class="text-xs text-[#2EE59D] font-semibold">16 отзывов</span>
+                    </div>
+                    <div id="modal-reviews-list" class="space-y-2.5"></div>
+                </div>
+            </div>
+
+            <div class="sticky bottom-0 left-0 right-0 mt-4 bg-[#181818]/95 backdrop-blur-md border-t border-white/10 p-3 flex gap-2.5 z-30">
+                <button id="modal-buy-now" class="flex-1 py-3.5 rounded-2xl bg-[#2B2B2E] hover:bg-[#36363A] text-white font-bold text-sm btn-spring">
+                    Купить сейчас
+                </button>
+                <button id="modal-add-cart" class="flex-1 py-3.5 rounded-2xl bg-[#FFCC00] hover:bg-[#FFD633] text-black font-extrabold text-sm btn-spring">
+                    В корзину
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== МОДАЛЬНОЕ ОКНО ВЫБОРА ПВЗ И GOOGLE КАРТ ==================== -->
+        <div id="pvz-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/75 backdrop-blur-sm p-3">
+            <div class="w-full max-w-md bg-[#1B162E] border border-purple-400/20 rounded-3xl p-4 space-y-3 animate-modal-in max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold">Пункт выдачи и карта</h3>
+                    <button onclick="closePvzModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center btn-spring">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="selectPvzProvider('WB')" id="pvz-btn-wb" class="py-2 px-3 rounded-xl text-xs font-bold bg-purple-600 text-white btn-spring">
+                        ПВЗ Wildberries
+                    </button>
+                    <button type="button" onclick="selectPvzProvider('YM')" id="pvz-btn-ym" class="py-2 px-3 rounded-xl text-xs font-bold bg-[#251E40] text-gray-300 btn-spring">
+                        ПВЗ Яндекс Маркет
+                    </button>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-gray-300 mb-1">Адрес пункта выдачи (обязательно):</label>
+                    <input id="pvz-address-input" type="text" placeholder="Например: Москва, Тверская улица, 12" class="w-full bg-[#141024] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-purple-400">
+                </div>
+
+                <div class="rounded-2xl overflow-hidden border border-white/10 h-44 bg-[#141024]">
+                    <iframe id="pvz-map-frame" class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%A4%D1%80%D1%83%D0%BD%D0%B7%D0%B5%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%2050&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+                </div>
+
+                <div class="flex gap-2">
+                    <button type="button" onclick="updateMapFromInput()" class="px-3.5 py-2.5 rounded-xl bg-[#251E40] text-xs font-bold text-purple-200 btn-spring">
+                        Показать на карте
+                    </button>
+                    <button type="button" onclick="savePvzSelection()" class="flex-1 py-2.5 rounded-xl bg-[#2EE59D] text-[#081A12] text-xs font-extrabold btn-spring">
+                        Сохранить ПВЗ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== МОДАЛЬНОЕ ОКНО ИИ-КОНСУЛЬТАНТА ==================== -->
+        <div id="ai-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/75 backdrop-blur-sm p-3">
+            <div class="w-full max-w-md bg-[#18181B] border border-white/10 rounded-3xl p-4 flex flex-col max-h-[82vh] animate-modal-in">
+                <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-[#2EE59D]/15 text-[#2EE59D] flex items-center justify-center">
+                            <i data-lucide="bot" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold">ИИ-ассистент SmartSplit</div>
+                            <div class="text-[10px] text-gray-400">Только товары, выбор цвета/ГБ, ПВЗ и оплата</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="closeAiAssistant()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center btn-spring">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div id="ai-messages" class="flex-1 overflow-y-auto py-3 space-y-2.5 text-xs">
+                    <div class="bg-[#242429] rounded-2xl p-2.5 text-gray-200 mr-6 leading-relaxed">
+                        Здравствуйте! Подскажу по характеристикам, выбору цвета и ГБ внутри карточки, доставке в ПВЗ WB / Яндекс Маркет и оплате (криптовалюта или перевод через @ww_woun).
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-white/10 flex gap-2">
+                    <input id="ai-input" type="text" onkeydown="if(event.key==='Enter') sendAiMessage()" placeholder="Спросите про товар, цвет, ГБ, ПВЗ или оплату..." class="flex-1 bg-[#111114] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2EE59D]">
+                    <button type="button" onclick="sendAiMessage()" class="px-4 py-2.5 rounded-xl bg-[#2EE59D] text-[#081A12] font-extrabold text-xs btn-spring">
+                        Отправить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== МОДАЛЬНОЕ ОКНО НАСТРОЙКИ TELEGRAM ПРОФИЛЯ ==================== -->
+        <div id="profile-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/75 backdrop-blur-sm p-3">
+            <div class="w-full max-w-md bg-[#1B162E] border border-purple-400/20 rounded-3xl p-4 space-y-3 animate-modal-in">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold">Профиль Telegram</h3>
+                    <button onclick="closeProfileModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center btn-spring">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-300 mb-1">Имя в Telegram:</label>
+                    <input id="tg-name-input" type="text" placeholder="Например: Kirill" class="w-full bg-[#141024] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-purple-400">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-300 mb-1">@username в Telegram:</label>
+                    <input id="tg-handle-input" type="text" placeholder="Например: @kirill_tg" class="w-full bg-[#141024] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-purple-400">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-300 mb-1">Ссылка на аватарку (необязательно):</label>
+                    <input id="tg-avatar-input" type="text" placeholder="https://..." class="w-full bg-[#141024] border border-white/15 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-purple-400">
+                </div>
+                <button type="button" onclick="saveTelegramProfile()" class="w-full py-2.5 rounded-xl bg-[#2EE59D] text-[#081A12] text-xs font-extrabold btn-spring">
+                    Сохранить профиль
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== МОДАЛЬНОЕ ОКНО LIVE-АНАЛИТИКИ И TELEGRAM ЛОГОВ ==================== -->
+        <div id="analytics-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/75 backdrop-blur-sm p-3">
+            <div class="w-full max-w-md bg-[#1B162E] border border-purple-400/20 rounded-3xl p-4 space-y-3 animate-modal-in max-h-[88vh] overflow-y-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#2EE59D] animate-pulse"></span>
+                        <h3 class="text-base font-extrabold">Live-статистика магазина</h3>
+                    </div>
+                    <button onclick="closeAnalyticsModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center btn-spring">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-center">
+                <div id="analytics-lock-box" class="bg-[#141024] border border-purple-400/25 rounded-2xl p-3 space-y-2">
+                    <div class="text-xs font-bold text-purple-200">Доступ по паролю</div>
+                    <p class="text-[11px] text-gray-400 leading-relaxed">
+                        Введите пароль для доступа к настройкам Telegram-уведомлений и журналу событий.
+                    </p>
+                    <div class="flex gap-2">
+                        <input id="analytics-pass-input" type="password" onkeydown="if(event.key==='Enter') unlockAnalyticsPanel()" placeholder="Введите пароль" class="flex-1 bg-[#1B162E] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-400">
+                        <button type="button" onclick="unlockAnalyticsPanel()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-extrabold btn-spring">
+                            Открыть
+                        </button>
+                    </div>
+                </div>
+
+                <div id="analytics-secret-panel" class="hidden space-y-3">
+                    <div class="bg-[#141024] border border-purple-400/20 rounded-2xl p-3 space-y-2">
+                        <div class="text-xs font-bold text-purple-200">Уведомления в ваш Telegram без отдельного сервера</div>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            Вставьте Bot Token (от @BotFather) и ваш Chat ID (от @userinfobot) — магазин будет сам отправлять вам в Telegram сообщения, когда кто-то открыл витрину, посмотрел товар или нажал «Оформить заказ».
+                        </p>
+                        <input id="tg-bot-token-input" type="text" placeholder="Bot Token (например: 7123456:AAH...)" class="w-full bg-[#1B162E] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-400">
+                        <div class="flex gap-2">
+                            <input id="tg-chat-id-input" type="text" placeholder="Ваш Chat ID (например: 123456789)" class="flex-1 bg-[#1B162E] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-400">
+                            <button type="button" onclick="saveTgAnalyticsConfig()" class="px-3.5 py-2 rounded-xl bg-[#2EE59D] text-[#081A12] text-xs font-extrabold btn-spring">
+                                Включить
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-xs font-bold text-gray-300 mb-1.5">Лента событий в реальном времени:</div>
+                        <div id="analytics-events-list" class="space-y-1.5 max-h-44 overflow-y-auto text-[11px]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== УВЕДОМЛЕНИЕ TOAST ==================== -->
+        <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[60] hidden px-4 py-2.5 rounded-2xl bg-[#222226] border border-white/15 text-xs font-semibold text-white shadow-2xl"></div>
+    </div>
+
+    <script>
+        // Генератор детализированных SVG-иллюстраций по типу устройства (телефон, складной Fold, Galaxy, GPU, CPU, руль, очки, монитор/ноутбук)
+        function makePhotoFallback(label, bgHex, accentHex, badgeText, shape = 'phone') {
+            const safeLabel = String(label || 'SmartSplit').replace(/[<>&"]/g, '');
+            const safeBadge = String(badgeText || 'SS').replace(/[<>&"]/g, '');
+            let centerGraphic = `
+                <rect x="215" y="58" width="170" height="310" rx="28" fill="#0D0F14" stroke="${accentHex}" stroke-width="3"/>
+                <rect x="228" y="75" width="144" height="276" rx="20" fill="#181C26"/>
+                <rect x="272" y="87" width="56" height="10" rx="5" fill="#090A0D"/>
+            `;
+
+            if (shape === 'fold') {
+                centerGraphic = `
+                    <rect x="135" y="75" width="95" height="265" rx="20" fill="#0E1117" stroke="${accentHex}" stroke-width="2.5"/>
+                    <circle cx="162" cy="105" r="11" fill="#1F2937"/><circle cx="192" cy="105" r="11" fill="#1F2937"/>
+                    <rect x="242" y="75" width="225" height="265" rx="22" fill="#181C26" stroke="${accentHex}" stroke-width="3"/>
+                    <line x1="354" y1="78" x2="354" y2="337" stroke="#090B10" stroke-width="3"/>
+                `;
+            } else if (shape === 'galaxy') {
+                centerGraphic = `
+                    <rect x="215" y="58" width="170" height="310" rx="26" fill="#0D0F14" stroke="${accentHex}" stroke-width="3"/>
+                    <rect x="228" y="75" width="144" height="276" rx="18" fill="#181C26"/>
+                    <rect x="240" y="88" width="26" height="84" rx="13" fill="#0A0C10" stroke="${accentHex}" stroke-width="1.5"/>
+                    <circle cx="253" cy="104" r="7" fill="#1F2937"/><circle cx="253" cy="130" r="7" fill="#1F2937"/><circle cx="253" cy="156" r="7" fill="#1F2937"/>
+                `;
+            } else if (shape === 'glasses') {
+                centerGraphic = `
+                    <rect x="135" y="135" width="145" height="95" rx="24" fill="#0B0D12" stroke="${accentHex}" stroke-width="3.5"/>
+                    <rect x="320" y="135" width="145" height="95" rx="24" fill="#0B0D12" stroke="${accentHex}" stroke-width="3.5"/>
+                    <rect x="280" y="155" width="40" height="16" rx="6" fill="${accentHex}"/>
+                    <circle cx="152" cy="152" r="6" fill="${accentHex}"/><circle cx="448" cy="152" r="6" fill="${accentHex}"/>
+                `;
+            } else if (shape === 'wheel') {
+                centerGraphic = `
+                    <circle cx="300" cy="195" r="95" fill="none" stroke="#0B0D12" stroke-width="24"/>
+                    <circle cx="300" cy="195" r="95" fill="none" stroke="${accentHex}" stroke-width="4"/>
+                    <rect x="255" y="175" width="90" height="42" rx="12" fill="#181C26" stroke="${accentHex}" stroke-width="2"/>
+                    <rect x="294" y="100" width="12" height="16" rx="3" fill="${accentHex}"/>
+                `;
+            } else if (shape === 'gpu') {
+                centerGraphic = `
+                    <rect x="125" y="115" width="350" height="155" rx="20" fill="#12151E" stroke="${accentHex}" stroke-width="3"/>
+                    <circle cx="205" cy="192" r="46" fill="#0B0D12" stroke="${accentHex}" stroke-width="2.5"/>
+                    <circle cx="300" cy="192" r="46" fill="#0B0D12" stroke="${accentHex}" stroke-width="2.5"/>
+                    <circle cx="395" cy="192" r="46" fill="#0B0D12" stroke="${accentHex}" stroke-width="2.5"/>
+                `;
+            } else if (shape === 'cpu') {
+                centerGraphic = `
+                    <rect x="205" y="100" width="190" height="190" rx="22" fill="#16302B" stroke="${accentHex}" stroke-width="3"/>
+                    <rect x="228" y="123" width="144" height="144" rx="16" fill="#CBD5E1"/>
+                `;
+            } else if (shape === 'screen') {
+                centerGraphic = `
+                    <rect x="125" y="85" width="350" height="205" rx="18" fill="#161A24" stroke="${accentHex}" stroke-width="3"/>
+                    <rect x="275" y="290" width="50" height="32" fill="#0D0F14"/>
+                    <rect x="220" y="320" width="160" height="12" rx="6" fill="${accentHex}"/>
+                `;
+            }
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450">
+                <defs>
+                    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="${bgHex}"/>
+                        <stop offset="100%" stop-color="#111318"/>
+                    </linearGradient>
+                </defs>
+                <rect width="600" height="450" rx="28" fill="url(#g)"/>
+                <circle cx="490" cy="95" r="95" fill="${accentHex}" fill-opacity="0.14"/>
+                ${centerGraphic}
+                <rect x="95" y="356" width="410" height="68" rx="18" fill="#0D0F14" fill-opacity="0.88" stroke="${accentHex}" stroke-opacity="0.45"/>
+                <text x="300" y="384" text-anchor="middle" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800">${safeLabel}</text>
+                <text x="300" y="408" text-anchor="middle" fill="${accentHex}" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="800">${safeBadge}</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        function makeTgAvatarFallback(handle) {
+            const clean = String(handle || 'TG').replace('@', '').slice(0, 2).toUpperCase() || 'TG';
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+                <defs>
+                    <linearGradient id="av" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#2EE59D"/>
+                        <stop offset="100%" stop-color="#8B5CF6"/>
+                    </linearGradient>
+                </defs>
+                <rect width="120" height="120" rx="60" fill="url(#av)"/>
+                <text x="60" y="69" text-anchor="middle" fill="#090D16" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="900">${clean}</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        // Полный каталог: 1 карточка на модель, цвет и память/комплектация выбираются внутри карточки, добавлены все новинки со скриншотов
+        const PRODUCTS = [
+            {
+                id: 100,
+                category: 'iphone',
+                shape: 'fold',
+                title: 'Apple iPhone Fold, 7.9" складной OLED 120 Гц + 6.2" внешний',
+                price: 5500,
+                oldPrice: 219990,
+                discount: '-97%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Obsidian Black', hex: '#18181B', bg: '#18181B', accent: '#A78BFA' },
+                    { name: 'Starlight White', hex: '#F3F4F6', bg: '#334155', accent: '#38BDF8' }
+                ],
+                storages: [
+                    { label: '512 ГБ', addPrice: 0 },
+                    { label: '1 ТБ', addPrice: 800 }
+                ],
+                specs: 'Складной внутренний дисплей 7.9" LTPO OLED 120 Гц, внешний 6.2", титановый шарнир.',
+                desc: 'Первый складной iPhone Fold (чёрный и белый корпус с ваших фото). Выберите цвет и ГБ внутри карточки.',
+                img: makePhotoFallback('iPhone Fold', '#1E293B', '#38BDF8', 'Fold 7.9"', 'fold'),
+                fallback: makePhotoFallback('iPhone Fold', '#1E293B', '#38BDF8', 'Fold 7.9"', 'fold')
+            },
+            {
+                id: 101,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 18 Pro Max, 6.9" OLED 120 Гц, чип A20 Pro',
+                price: 4600,
+                oldPrice: 179990,
+                discount: '-97%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Burgundy Titanium', hex: '#6E1D33', bg: '#4C1022', accent: '#F472B6' },
+                    { name: 'Cosmic Orange', hex: '#EA580C', bg: '#7C2D12', accent: '#FB923C' },
+                    { name: 'Yellow Gold', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' },
+                    { name: 'Deep Blue', hex: '#1E3A8A', bg: '#172554', accent: '#60A5FA' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 700 },
+                    { label: '1 ТБ', addPrice: 1400 }
+                ],
+                specs: 'Дисплей 6.9" Super Retina XDR 120 Гц, чип A20 Pro, тройная камера 48 Мп.',
+                desc: 'Флагман iPhone 18 Pro Max. Выберите нужный цвет и объём памяти (ГБ) внутри карточки.',
+                img: makePhotoFallback('iPhone 18 Pro Max', '#4C1022', '#F472B6', '18 Pro Max', 'phone'),
+                fallback: makePhotoFallback('iPhone 18 Pro Max', '#4C1022', '#F472B6', '18 Pro Max', 'phone')
+            },
+            {
+                id: 108,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 17 Pro Max, 6.9" OLED 120 Гц, чип A19 Pro',
+                price: 4200,
+                oldPrice: 164990,
+                discount: '-97%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Cosmic Orange', hex: '#EA580C', bg: '#7C2D12', accent: '#FB923C' },
+                    { name: 'Deep Blue', hex: '#1E3A8A', bg: '#172554', accent: '#60A5FA' },
+                    { name: 'Natural Titanium', hex: '#9CA3AF', bg: '#374151', accent: '#E5E7EB' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 600 },
+                    { label: '1 ТБ', addPrice: 1200 }
+                ],
+                specs: 'Экран 6.9" OLED 120 Гц, чип A19 Pro, перископ 5x.',
+                desc: 'iPhone 17 Pro Max в расцветках Cosmic Orange, Deep Blue и Natural Titanium.',
+                img: makePhotoFallback('iPhone 17 Pro Max', '#7C2D12', '#FB923C', '17 Pro Max', 'phone'),
+                fallback: makePhotoFallback('iPhone 17 Pro Max', '#7C2D12', '#FB923C', '17 Pro Max', 'phone')
+            },
+            {
+                id: 102,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 17 Pro, 6.3" OLED 120 Гц, чип A19 Pro',
+                price: 3900,
+                oldPrice: 152990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Deep Blue', hex: '#1E3A8A', bg: '#172554', accent: '#60A5FA' },
+                    { name: 'Cosmic Orange', hex: '#EA580C', bg: '#7C2D12', accent: '#FB923C' },
+                    { name: 'Yellow', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' }
+                ],
+                storages: [
+                    { label: '128 ГБ', addPrice: 0 },
+                    { label: '256 ГБ', addPrice: 500 },
+                    { label: '512 ГБ', addPrice: 1000 }
+                ],
+                specs: 'Экран 6.3" ProMotion 120 Гц, чип A19 Pro, титановый корпус.',
+                desc: 'iPhone 17 Pro с выбором расцветки и памяти прямо в карточке.',
+                img: makePhotoFallback('iPhone 17 Pro', '#172554', '#60A5FA', '17 Pro', 'phone'),
+                fallback: makePhotoFallback('iPhone 17 Pro', '#172554', '#60A5FA', '17 Pro', 'phone')
+            },
+            {
+                id: 109,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone Air / iPhone 17, 6.5" OLED 120 Гц, чип A19',
+                price: 2900,
+                oldPrice: 114990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Sky Blue', hex: '#38BDF8', bg: '#0C4A6E', accent: '#7DD3FC' },
+                    { name: 'Space Black', hex: '#18181B', bg: '#18181B', accent: '#2EE59D' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 500 }
+                ],
+                specs: 'Ультратонкий корпус 5.5 мм, 6.5" OLED 120 Гц, A19.',
+                desc: 'Тонкий iPhone Air / 17 с выбором цвета и объёма памяти.',
+                img: makePhotoFallback('iPhone Air / 17', '#0C4A6E', '#7DD3FC', 'Air 120Hz', 'phone'),
+                fallback: makePhotoFallback('iPhone Air / 17', '#0C4A6E', '#7DD3FC', 'Air 120Hz', 'phone')
+            },
+            {
+                id: 104,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 16 Pro Max, 6.9" OLED 120 Гц, чип A18 Pro',
+                price: 3600,
+                oldPrice: 139990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Desert Titanium', hex: '#C69C72', bg: '#5C4028', accent: '#FCD34D' },
+                    { name: 'Black Titanium', hex: '#27272A', bg: '#1F2937', accent: '#A78BFA' },
+                    { name: 'Yellow Gold', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 600 },
+                    { label: '1 ТБ', addPrice: 1200 }
+                ],
+                specs: 'Экран 6.9" 120 Гц, чип A18 Pro, титановый корпус, 5x зум.',
+                desc: 'iPhone 16 Pro Max — цвет и гигабайты можно выбрать в карточке.',
+                img: makePhotoFallback('iPhone 16 Pro Max', '#5C4028', '#FCD34D', '16 Pro Max', 'phone'),
+                fallback: makePhotoFallback('iPhone 16 Pro Max', '#5C4028', '#FCD34D', '16 Pro Max', 'phone')
+            },
+            {
+                id: 105,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 16 Pro, 6.3" OLED 120 Гц, чип A18 Pro',
+                price: 3100,
+                oldPrice: 124990,
+                discount: '-98%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Black Titanium', hex: '#27272A', bg: '#1F2937', accent: '#9CA3AF' },
+                    { name: 'Desert Titanium', hex: '#C69C72', bg: '#5C4028', accent: '#FCD34D' },
+                    { name: 'Yellow', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' }
+                ],
+                storages: [
+                    { label: '128 ГБ', addPrice: 0 },
+                    { label: '256 ГБ', addPrice: 400 },
+                    { label: '512 ГБ', addPrice: 900 }
+                ],
+                specs: 'Дисплей 6.3" 120 Гц, титановый корпус, камера Pro.',
+                desc: 'iPhone 16 Pro с быстрым выбором цвета и объёма памяти.',
+                img: makePhotoFallback('iPhone 16 Pro', '#1F2937', '#9CA3AF', '16 Pro', 'phone'),
+                fallback: makePhotoFallback('iPhone 16 Pro', '#1F2937', '#9CA3AF', '16 Pro', 'phone')
+            },
+            {
+                id: 110,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 16 / 16 Plus, OLED, чип A18',
+                price: 2300,
+                oldPrice: 89990,
+                discount: '-97%',
+                rating: 4.8,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Ultramarine', hex: '#2563EB', bg: '#1E3A8A', accent: '#60A5FA' },
+                    { name: 'Midnight Black', hex: '#18181B', bg: '#18181B', accent: '#2EE59D' },
+                    { name: 'Teal', hex: '#0D9488', bg: '#134E4A', accent: '#5EEAD4' }
+                ],
+                storages: [
+                    { label: '128 ГБ', addPrice: 0 },
+                    { label: '256 ГБ', addPrice: 400 }
+                ],
+                specs: 'Чип A18, кнопка управления камерой, Dynamic Island.',
+                desc: 'iPhone 16 в актуальных расцветках с выбором памяти.',
+                img: makePhotoFallback('iPhone 16', '#1E3A8A', '#60A5FA', 'iPhone 16', 'phone'),
+                fallback: makePhotoFallback('iPhone 16', '#1E3A8A', '#60A5FA', 'iPhone 16', 'phone')
+            },
+            {
+                id: 106,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 15 Pro Max, 6.7" OLED 120 Гц, чип A17 Pro',
+                price: 2600,
+                oldPrice: 109990,
+                discount: '-98%',
+                rating: 4.9,
+                delivery: '2–4 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Natural Titanium', hex: '#9CA3AF', bg: '#374151', accent: '#E5E7EB' },
+                    { name: 'Black Titanium', hex: '#27272A', bg: '#18181B', accent: '#9CA3AF' },
+                    { name: 'Yellow', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 500 },
+                    { label: '1 ТБ', addPrice: 1000 }
+                ],
+                specs: 'Дисплей 6.7" 120 Гц, чип A17 Pro, титан, USB-C.',
+                desc: 'iPhone 15 Pro Max с выбором расцветки и памяти внутри карточки.',
+                img: makePhotoFallback('iPhone 15 Pro Max', '#374151', '#E5E7EB', '15 Pro Max', 'phone'),
+                fallback: makePhotoFallback('iPhone 15 Pro Max', '#374151', '#E5E7EB', '15 Pro Max', 'phone')
+            },
+            {
+                id: 107,
+                category: 'iphone',
+                shape: 'phone',
+                title: 'Apple iPhone 15, 6.1" OLED, чип A16 Bionic',
+                price: 1840,
+                oldPrice: 69990,
+                discount: '-97%',
+                rating: 4.8,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Midnight Black', hex: '#18181B', bg: '#18181B', accent: '#2EE59D' },
+                    { name: 'Yellow', hex: '#EAB308', bg: '#713F12', accent: '#FDE047' },
+                    { name: 'Blue', hex: '#2563EB', bg: '#1E3A8A', accent: '#93C5FD' }
+                ],
+                storages: [
+                    { label: '128 ГБ', addPrice: 0 },
+                    { label: '256 ГБ', addPrice: 360 },
+                    { label: '512 ГБ', addPrice: 720 }
+                ],
+                specs: 'Экран 6.1" OLED, Dynamic Island, USB-C.',
+                desc: 'Выбор цвета и памяти доступен прямо в карточке товара.',
+                img: makePhotoFallback('iPhone 15', '#18181B', '#2EE59D', 'iPhone 15', 'phone'),
+                fallback: makePhotoFallback('iPhone 15', '#18181B', '#2EE59D', 'iPhone 15', 'phone')
+            },
+            {
+                id: 111,
+                category: 'iphone',
+                shape: 'galaxy',
+                title: 'Samsung Galaxy S25 / S25+, 6.7" Dynamic AMOLED 2X 120 Гц',
+                price: 2500,
+                oldPrice: 99990,
+                discount: '-98%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Lavender Violet', hex: '#8B5CF6', bg: '#3B0764', accent: '#C084FC' },
+                    { name: 'Obsidian Black', hex: '#18181B', bg: '#18181B', accent: '#9CA3AF' }
+                ],
+                storages: [
+                    { label: '256 ГБ', addPrice: 0 },
+                    { label: '512 ГБ', addPrice: 440 }
+                ],
+                specs: 'Snapdragon 8 Elite for Galaxy, 12 ГБ ОЗУ, камера 50 Мп + Galaxy AI.',
+                desc: 'Samsung Galaxy (фиолетовый Lavender и чёрный Obsidian с ваших фото). Выберите цвет и ГБ внутри карточки.',
+                img: makePhotoFallback('Samsung Galaxy S25+', '#3B0764', '#C084FC', 'Galaxy AI', 'galaxy'),
+                fallback: makePhotoFallback('Samsung Galaxy S25+', '#3B0764', '#C084FC', 'Galaxy AI', 'galaxy')
+            },
+            {
+                id: 201,
+                category: 'pc',
+                shape: 'gpu',
+                title: 'Видеокарта NVIDIA GeForce RTX 5090 GDDR7',
+                price: 7000,
+                oldPrice: 289990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–4 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Founders Graphite', hex: '#3F3F46', bg: '#14532D', accent: '#2EE59D' },
+                    { name: 'Stealth Black', hex: '#18181B', bg: '#09090B', accent: '#A78BFA' }
+                ],
+                storages: [
+                    { label: '32 ГБ GDDR7', addPrice: 0 },
+                    { label: '32 ГБ OC Edition', addPrice: 800 }
+                ],
+                specs: 'Архитектура Blackwell, шина 512-bit, DLSS 4, PCIe 5.0.',
+                desc: 'Флагманская видеокарта для 4K/8K и ИИ-задач.',
+                img: makePhotoFallback('GeForce RTX 5090', '#14532D', '#2EE59D', '32 ГБ GDDR7', 'gpu'),
+                fallback: makePhotoFallback('GeForce RTX 5090', '#14532D', '#2EE59D', '32 ГБ GDDR7', 'gpu')
+            },
+            {
+                id: 205,
+                category: 'pc',
+                shape: 'gpu',
+                title: 'Видеокарта MSI GeForce RTX 5070 GAMING TRIO 12GB GDDR7',
+                price: 2300,
+                oldPrice: 89990,
+                discount: '-97%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Gaming Trio RGB', hex: '#6366F1', bg: '#1E1B4B', accent: '#818CF8' }
+                ],
+                storages: [
+                    { label: '12 ГБ GDDR7', addPrice: 0 },
+                    { label: '12 ГБ OC', addPrice: 300 }
+                ],
+                specs: 'MSI Gaming Trio, 3 вентилятора TORX, DLSS 4, 12 ГБ GDDR7.',
+                desc: 'Видеокарта MSI GeForce RTX 5070 GAMING TRIO в заводской коробке (с вашего фото).',
+                img: makePhotoFallback('MSI RTX 5070 TRIO', '#1E1B4B', '#818CF8', '12 ГБ GDDR7', 'gpu'),
+                fallback: makePhotoFallback('MSI RTX 5070 TRIO', '#1E1B4B', '#818CF8', '12 ГБ GDDR7', 'gpu')
+            },
+            {
+                id: 206,
+                category: 'pc',
+                shape: 'gpu',
+                title: 'Видеокарта GIGABYTE GeForce RTX 5060 Ti EAGLE OC',
+                price: 1780,
+                oldPrice: 69990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'EAGLE Silver / Grey', hex: '#94A3B8', bg: '#1E293B', accent: '#38BDF8' }
+                ],
+                storages: [
+                    { label: '8 ГБ GDDR7', addPrice: 0 },
+                    { label: '16 ГБ GDDR7', addPrice: 360 }
+                ],
+                specs: 'Охлаждение WINDFORCE, DLSS 4, PCIe 5.0.',
+                desc: 'GIGABYTE EAGLE GeForce RTX 5060 Ti (с вашего фото). Выберите объём видеопамяти в карточке.',
+                img: makePhotoFallback('GIGABYTE RTX 5060 Ti', '#1E293B', '#38BDF8', 'EAGLE OC', 'gpu'),
+                fallback: makePhotoFallback('GIGABYTE RTX 5060 Ti', '#1E293B', '#38BDF8', 'EAGLE OC', 'gpu')
+            },
+            {
+                id: 202,
+                category: 'pc',
+                shape: 'gpu',
+                title: 'Видеокарта NVIDIA GeForce RTX 4090 / 4080 Super ROG Strix',
+                price: 4400,
+                oldPrice: 189990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'ROG Black', hex: '#18181B', bg: '#312E81', accent: '#A78BFA' },
+                    { name: 'White Edition', hex: '#E5E7EB', bg: '#334155', accent: '#38BDF8' }
+                ],
+                storages: [
+                    { label: '4080 Super 16 ГБ', addPrice: 0 },
+                    { label: '4090 24 ГБ', addPrice: 700 }
+                ],
+                specs: 'GDDR6X, DLSS 3.5, испарительная камера.',
+                desc: 'Выбор модели 4080 Super или 4090 и цвета кожуха прямо в карточке.',
+                img: makePhotoFallback('RTX 4090 / 4080S', '#312E81', '#A78BFA', 'ROG Strix', 'gpu'),
+                fallback: makePhotoFallback('RTX 4090 / 4080S', '#312E81', '#A78BFA', 'ROG Strix', 'gpu')
+            },
+            {
+                id: 204,
+                category: 'pc',
+                shape: 'cpu',
+                title: 'Процессор AMD Ryzen 7 9800X3D / 7800X3D (AM5, 3D V-Cache)',
+                price: 1480,
+                oldPrice: 59990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'OEM / BOX', hex: '#EA580C', bg: '#7C2D12', accent: '#FB923C' }
+                ],
+                storages: [
+                    { label: 'Ryzen 7 7800X3D (8 ядер)', addPrice: 0 },
+                    { label: 'Ryzen 7 9800X3D (Zen 5)', addPrice: 280 }
+                ],
+                specs: '8 ядер / 16 потоков, сокет AM5, память DDR5, технология AMD 3D V-Cache.',
+                desc: 'Лучшие игровые процессоры AMD Ryzen 7 7800X3D и 9800X3D (с вашего фото).',
+                img: makePhotoFallback('AMD Ryzen 7 7800X3D', '#7C2D12', '#FB923C', 'AM5 • 3D V-Cache', 'cpu'),
+                fallback: makePhotoFallback('AMD Ryzen 7 7800X3D', '#7C2D12', '#FB923C', 'AM5 • 3D V-Cache', 'cpu')
+            },
+            {
+                id: 207,
+                category: 'pc',
+                shape: 'cpu',
+                title: 'Процессор AMD Ryzen 5 5600X / 5500 BOX (AM4)',
+                price: 720,
+                oldPrice: 24990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'BOX с кулером', hex: '#F97316', bg: '#431407', accent: '#FDBA74' }
+                ],
+                storages: [
+                    { label: 'Ryzen 5 5500', addPrice: 0 },
+                    { label: 'Ryzen 5 5600X', addPrice: 180 }
+                ],
+                specs: '6 ядер / 12 потоков, сокет AM4, фирменная коробка AMD Ryzen 5.',
+                desc: 'Процессор AMD Ryzen 5 в фирменной коробке (с вашего фото).',
+                img: makePhotoFallback('AMD Ryzen 5 BOX', '#431407', '#FDBA74', 'AM4 • 6 ядер', 'cpu'),
+                fallback: makePhotoFallback('AMD Ryzen 5 BOX', '#431407', '#FDBA74', 'AM4 • 6 ядер', 'cpu')
+            },
+            {
+                id: 301,
+                category: 'monitors',
+                shape: 'screen',
+                title: 'Игровой монитор ASUS ROG Swift 27" / 32" QD-OLED 240 Гц',
+                price: 2500,
+                oldPrice: 104990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–4 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Obsidian Black', hex: '#18181B', bg: '#2E1065', accent: '#C084FC' }
+                ],
+                storages: [
+                    { label: '27" 2K 240Гц', addPrice: 0 },
+                    { label: '32" 4K 240Гц', addPrice: 700 }
+                ],
+                specs: 'QD-OLED, отклик 0.03 мс, G-SYNC Compatible.',
+                desc: 'Монитор QD-OLED 240 Гц с выбором диагонали/разрешения в карточке.',
+                img: makePhotoFallback('ROG Swift OLED', '#2E1065', '#C084FC', '240Hz 0.03ms', 'screen'),
+                fallback: makePhotoFallback('ROG Swift OLED', '#2E1065', '#C084FC', '240Hz 0.03ms', 'screen')
+            },
+            {
+                id: 303,
+                category: 'monitors',
+                shape: 'screen',
+                title: 'Ноутбук Apple MacBook Pro 14" M4 Pro, Liquid Retina XDR',
+                price: 5600,
+                oldPrice: 229990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–4 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Space Black', hex: '#18181B', bg: '#18181B', accent: '#E5E7EB' },
+                    { name: 'Silver', hex: '#D1D5DB', bg: '#374151', accent: '#F3F4F6' }
+                ],
+                storages: [
+                    { label: '24 ГБ / 512 ГБ SSD', addPrice: 0 },
+                    { label: '24 ГБ / 1 ТБ SSD', addPrice: 700 },
+                    { label: '48 ГБ / 1 ТБ SSD', addPrice: 1400 }
+                ],
+                specs: 'Чип M4 Pro, дисплей 120 Гц, автономность до 24 часов.',
+                desc: 'Выбор цвета и памяти/SSD прямо внутри карточки товара.',
+                img: makePhotoFallback('MacBook Pro 14"', '#18181B', '#E5E7EB', 'M4 Pro XDR', 'screen'),
+                fallback: makePhotoFallback('MacBook Pro 14"', '#18181B', '#E5E7EB', 'M4 Pro XDR', 'screen')
+            },
+            {
+                id: 405,
+                category: 'peripherals',
+                shape: 'glasses',
+                title: 'Умные очки Ray-Ban Meta Wayfarer (камера 12 Мп + Meta AI)',
+                price: 1380,
+                oldPrice: 49990,
+                discount: '-97%',
+                rating: 5.0,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Matte Black', hex: '#18181B', bg: '#18181B', accent: '#2EE59D' },
+                    { name: 'Shiny Black / G15', hex: '#27272A', bg: '#1E293B', accent: '#38BDF8' }
+                ],
+                storages: [
+                    { label: 'Standard (50 мм)', addPrice: 0 },
+                    { label: 'Large (53 мм)', addPrice: 120 }
+                ],
+                specs: 'Камера 12 Мп Full HD, 5 микрофонов, открытые динамики, зарядный футляр.',
+                desc: 'Умные очки Ray-Ban Meta Wayfarer Matte Black (с вашего фото). Выберите размер оправы в карточке.',
+                img: makePhotoFallback('Ray-Ban Meta Wayfarer', '#18181B', '#2EE59D', '12 Мп • AI', 'glasses'),
+                fallback: makePhotoFallback('Ray-Ban Meta Wayfarer', '#18181B', '#2EE59D', '12 Мп • AI', 'glasses')
+            },
+            {
+                id: 401,
+                category: 'peripherals',
+                shape: 'wheel',
+                title: 'Игровой руль MOZA R5 Bundle Direct Drive (5.5 Нм + педали)',
+                price: 1440,
+                oldPrice: 59990,
+                discount: '-98%',
+                rating: 5.0,
+                delivery: '2–4 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Carbon / Black', hex: '#27272A', bg: '#422006', accent: '#FACC15' }
+                ],
+                storages: [
+                    { label: 'База + руль + педали + струбцины', addPrice: 0 },
+                    { label: 'Комплект + сцепление', addPrice: 240 }
+                ],
+                specs: 'Прямой привод Direct Drive 5.5 Нм, алюминий, педали SR-P Lite и крепление к столу.',
+                desc: 'Полный бандл MOZA R5 с педалями и струбцинами (с вашего фото).',
+                img: makePhotoFallback('MOZA R5 Bundle DD', '#422006', '#FACC15', '5.5 Nm + Педали', 'wheel'),
+                fallback: makePhotoFallback('MOZA R5 Bundle DD', '#422006', '#FACC15', '5.5 Nm + Педали', 'wheel')
+            },
+            {
+                id: 406,
+                category: 'peripherals',
+                shape: 'wheel',
+                title: 'Игровой руль Logitech G29 Driving Force (PS5 / PS4 / PC)',
+                price: 1080,
+                oldPrice: 42990,
+                discount: '-97%',
+                rating: 4.9,
+                delivery: '2–3 дня, ПВЗ WB / Маркет',
+                colors: [
+                    { name: 'Black Leather / Blue Ring', hex: '#2563EB', bg: '#172554', accent: '#60A5FA' }
+                ],
+                storages: [
+                    { label: 'Руль + 3 педали', addPrice: 0 },
+                    { label: 'Руль + 3 педали + КПП Shifter', addPrice: 260 }
+                ],
+                specs: 'Обратная связь с двумя моторами, обшивка кожей, блок из 3 педалей.',
+                desc: 'Классический игровой руль Logitech G29 с тремя педалями (с вашего фото).',
+                img: makePhotoFallback('Logitech G29 Force', '#172554', '#60A5FA', 'PS / PC • 3 педали', 'wheel'),
+                fallback: makePhotoFallback('Logitech G29 Force', '#172554', '#60A5FA', 'PS / PC • 3 педали', 'wheel')
+            }
+        ];
+
+        // 16 отзывов на товар с метками времени
+        function getReviewsForProduct(product) {
+            const times = [
+                '1 час назад', '2 часа назад', '4 часа назад', '7 часов назад',
+                '1 день назад', '1 день назад', '2 дня назад', '3 дня назад',
+                '4 дня назад', '6 дней назад', '1 неделю назад', '1 неделю назад',
+                '2 недели назад', '3 недели назад', '1 месяц назад', '1 месяц назад'
+            ];
+            const authors = [
+                'Кирилл М.', 'Артём В.', 'Дмитрий К.', 'Никита С.',
+                'Максим П.', 'Егор Л.', 'Илья Т.', 'Роман Д.',
+                'Даниил Н.', 'Павел Г.', 'Сергей О.', 'Влад Р.',
+                'Антон Б.', 'Олег Ф.', 'Денис Ц.', 'Глеб Ш.'
+            ];
+            const texts = [
+                'Забрал в ПВЗ, всё пришло целым, цвет и память совпали.',
+                'Цена реально в разы ниже рынка, через @Smart_Split всё быстро подтвердили.',
+                'Выбрал нужный цвет и объём ГБ прямо в карточке, в корзине всё чётко.',
+                'Упаковано надёжно, на пункте выдачи проверил без проблем.',
+                'Брал через оплату криптовалютой, транзакция прошла быстро.',
+                'Отличный сервис, выкуп через аккаунты Сплит / WB работает как заявлено.',
+                'Порадовала скорость доставки до ПВЗ и понятная инструкция.',
+                'Сравнивал с обычными ценами — выгода колоссальная.',
+                'Брал в подарок, всё в порядке, коробка не мятая.',
+                'Менеджер @Smart_Split помог с адресом ПВЗ и деталями заказа.',
+                'Плавный интерфейс, удобно смотреть варианты памяти и расцветки.',
+                'Всё соответствует описанию, буду заказывать ещё.',
+                'Пришло за пару дней, в ПВЗ выдали без очереди.',
+                'Хороший вариант, если хочется сэкономить и получить нужную конфигурацию.',
+                'Пользуюсь уже месяц, никаких нареканий нет.',
+                'Рекомендую заглянуть перед покупкой — цены приятно удивляют.'
+            ];
+            return times.map((t, idx) => ({
+                id: `${product.id}-rev-${idx}`,
+                author: authors[idx % authors.length],
+                time: t,
+                rating: idx % 5 === 0 ? 4 : 5,
+                pvzType: idx % 2 === 0 ? 'ПВЗ WB' : 'Яндекс Маркет',
+                text: texts[idx % texts.length]
+            }));
+        }
+
+        const CRYPTO_RATES = {
+            USDT: 82,
+            TON: 480,
+            BTC: 7600000,
+            SOL: 16500
+        };
+
+        let state = {
+            currentTab: 'home',
+            currentCategory: 'all',
+            searchQuery: '',
+            cart: [{ id: 101, qty: 1, color: 'Burgundy Titanium', storage: '512 ГБ', unitPrice: 5300 }],
+            favorites: [101, 201, 401],
+            orders: [
+                {
+                    orderNumber: 'SS-482910',
+                    itemsText: 'Apple iPhone 18 Pro Max (Burgundy Titanium, 512 ГБ) × 1',
+                    totalRub: 5300,
+                    pvz: 'ПВЗ WB: Москва, Фрунзенская набережная 50',
+                    etaDates: 'Ориентировочно 27–29 ноября (точное время прибытия уточняйте у менеджера @Smart_Split)',
+                    status: 'Ожидает подтверждения / сборки'
+                }
+            ],
+            pvzProvider: 'WB',
+            pvzAddress: 'Москва, Фрунзенская набережная 50',
+            paymentMethod: 'crypto',
+            cryptoAsset: 'USDT',
+            promoDiscount: 0,
+            tgUser: {
+                name: 'Telegram Пользователь',
+                handle: '@telegram_user',
+                avatar: makeTgAvatarFallback('TG')
+            },
+            analytics: {
+                unlocked: false,
+                viewsToday: 1,
+                actionsToday: 1,
+                botToken: '9194310527:AAFVIAjmyhyRmTw546DCTsB58WOEGgCmR38',
+                chatId: '1082912481',
+                events: []
+            }
+        };
+
+        let selectedModalProduct = null;
+        let selectedModalColor = null;
+        let selectedModalStorage = null;
+
+        function trackShopEvent(actionText, sendToTg = false) {
+            const now = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            state.analytics.actionsToday += 1;
+            const entry = `[${now}] ${state.tgUser.handle}: ${actionText}`;
+            state.analytics.events.unshift(entry);
+            if (state.analytics.events.length > 30) state.analytics.events.pop();
+
+            const onlineCount = Math.max(1, Math.min(9, 1 + (state.analytics.actionsToday % 4)));
+            const badge = document.getElementById('profile-live-online');
+            if (badge) badge.textContent = `${onlineCount} онлайн`;
+
+            if (sendToTg && state.analytics.botToken && state.analytics.chatId) {
+                const msg = `📊 SmartSplit Live\n👤 ${state.tgUser.handle}\n📌 ${actionText}\n👁 Просмотров за день: ${state.analytics.viewsToday}`;
+                fetch(`https://api.telegram.org/bot${encodeURIComponent(state.analytics.botToken)}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: state.analytics.chatId, text: msg })
+                }).catch(() => {});
+            }
+            renderAnalyticsUI();
+        }
+
+        function openAnalyticsModal() {
+            document.getElementById('analytics-pass-input').value = '';
+            document.getElementById('analytics-lock-box').classList.toggle('hidden', state.analytics.unlocked);
+            document.getElementById('analytics-secret-panel').classList.toggle('hidden', !state.analytics.unlocked);
+            document.getElementById('tg-bot-token-input').value = state.analytics.botToken;
+            document.getElementById('tg-chat-id-input').value = state.analytics.chatId;
+            renderAnalyticsUI();
+            const modal = document.getElementById('analytics-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function unlockAnalyticsPanel() {
+            const pass = (document.getElementById('analytics-pass-input').value || '').trim();
+            if (pass === 'batrbatrtop') {
+                state.analytics.unlocked = true;
+                document.getElementById('analytics-lock-box').classList.add('hidden');
+                document.getElementById('analytics-secret-panel').classList.remove('hidden');
+                renderAnalyticsUI();
+                showToast('Доступ открыт');
+            } else {
+                showToast('Неверный пароль');
+            }
+        }
+
+        function closeAnalyticsModal() {
+            const modal = document.getElementById('analytics-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveTgAnalyticsConfig() {
+            state.analytics.botToken = (document.getElementById('tg-bot-token-input').value || '').trim();
+            state.analytics.chatId = (document.getElementById('tg-chat-id-input').value || '').trim();
+            trackShopEvent('Подключены Telegram-уведомления о посетителях', true);
+            showToast('Уведомления в Telegram сохранены');
+        }
+
+        function renderAnalyticsUI() {
+            const onlineEl = document.getElementById('stat-online-now');
+            const viewsEl = document.getElementById('stat-views-today');
+            const actionsEl = document.getElementById('stat-actions-today');
+            const listEl = document.getElementById('analytics-events-list');
+            if (!onlineEl || !listEl) return;
+
+            const onlineCount = Math.max(1, Math.min(9, 1 + (state.analytics.actionsToday % 4)));
+            onlineEl.textContent = onlineCount;
+            viewsEl.textContent = state.analytics.viewsToday;
+            actionsEl.textContent = state.analytics.actionsToday;
+
+            listEl.innerHTML = state.analytics.events.map(ev => `
+                <div class="bg-[#141024] border border-white/5 rounded-xl px-2.5 py-1.5 text-gray-300">${ev.replace(/[<>&]/g, '')}</div>
+            `).join('');
+        }
+
+        function formatPrice(num) {
+            return Math.round(Number(num) || 0).toLocaleString('ru-RU') + ' ₽';
+        }
+
+        function getProductPrice(product, storageObj) {
+            const st = storageObj || (product.storages && product.storages[0]) || { addPrice: 0 };
+            return (Number(product.price) || 0) + (Number(st.addPrice) || 0);
+        }
+
+        function formatCryptoConversions(rubAmount) {
+            const amount = Math.max(0, Number(rubAmount) || 0);
+            const usdt = (amount / CRYPTO_RATES.USDT).toFixed(2);
+            const ton = (amount / CRYPTO_RATES.TON).toFixed(2);
+            const btc = (amount / CRYPTO_RATES.BTC).toFixed(6);
+            const sol = (amount / CRYPTO_RATES.SOL).toFixed(3);
+            return {
+                usdt,
+                ton,
+                btc,
+                sol,
+                summary: `≈ ${usdt} USDT • ${ton} TON • ${btc} BTC • ${sol} SOL`
+            };
+        }
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+            clearTimeout(window.__toastTimer);
+            window.__toastTimer = setTimeout(() => {
+                el.classList.add('hidden');
+            }, 2400);
+        }
+
+        function enterApp() {
+            const screen = document.getElementById('welcome-screen');
+            screen.classList.add('opacity-0');
+            state.analytics.viewsToday += 1;
+            trackShopEvent('Открыл витрину магазина (кнопка «Начать»)', true);
+            setTimeout(() => {
+                screen.classList.add('hidden');
+                screen.classList.remove('opacity-0');
+            }, 280);
+        }
+
+        function switchTab(tab) {
+            state.currentTab = tab;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tab}`);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('flex', 'animate-fade-in');
+            }
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const active = btn.dataset.nav === tab;
+                btn.classList.toggle('text-white', active);
+                btn.classList.toggle('text-gray-400', !active);
+            });
+            if (tab === 'favorites') renderFavorites();
+            if (tab === 'cart') renderCart();
+            lucide.createIcons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterCategory(cat) {
+            state.currentCategory = cat;
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                const active = pill.dataset.cat === cat;
+                pill.className = active
+                    ? 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-[#121212] shrink-0 btn-spring'
+                    : 'cat-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#222222] text-gray-300 shrink-0 btn-spring';
+            });
+            renderProducts();
+        }
+
+        function handleSearch(val) {
+            state.searchQuery = val.trim().toLowerCase();
+            document.getElementById('clear-search-btn').classList.toggle('hidden', !state.searchQuery);
+            renderProducts();
+        }
+
+        function clearSearch() {
+            const inp = document.getElementById('search-input');
+            inp.value = '';
+            handleSearch('');
+        }
+
+        function getFilteredProducts() {
+            return PRODUCTS.filter(p => {
+                const matchCat = state.currentCategory === 'all' || p.category === state.currentCategory;
+                const q = state.searchQuery;
+                const matchQ = !q || p.title.toLowerCase().includes(q) || p.specs.toLowerCase().includes(q);
+                return matchCat && matchQ;
+            });
+        }
+
+        function createProductCard(product, index = 0) {
+            const isFav = state.favorites.includes(product.id);
+            const basePrice = getProductPrice(product);
+            const inCartQty = state.cart.filter(i => i.id === product.id).reduce((s, i) => s + i.qty, 0);
+            const programLabel = product.id % 2 === 0 ? 'Сплит Яндекс Маркет' : 'Оплата WB частями';
+            const programBadgeClass = product.id % 2 === 0
+                ? 'text-[#2EE59D] bg-[#2EE59D]/10 border-[#2EE59D]/25'
+                : 'text-purple-300 bg-purple-500/15 border-purple-400/25';
+
+            return `
+                <div style="animation-delay:${Math.min(index * 35, 280)}ms" class="bg-[#1A1A1D] border border-white/5 rounded-2xl p-2.5 flex flex-col justify-between animate-fade-in">
+                    <div class="relative bg-[#232327] rounded-xl overflow-hidden aspect-[4/3] flex items-center justify-center cursor-pointer" onclick="openProductModal(${product.id})">
+                        <span class="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full bg-[#27C96B] text-[#071B10] font-extrabold text-[10px]">${product.discount}</span>
+                        <button type="button" onclick="event.stopPropagation(); toggleFavorite(${product.id})" class="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/50 backdrop-blur flex items-center justify-center btn-spring">
+                            <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-[#FF4B2B] text-[#FF4B2B]' : 'text-white'}"></i>
+                        </button>
+                        <img src="${product.img}" alt="${product.title}" data-fallback="${product.fallback}" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="pt-2 px-0.5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div onclick="openProductModal(${product.id})" class="flex items-baseline gap-1.5 flex-wrap cursor-pointer">
+                                <span class="text-base font-extrabold text-[#27C96B]">${formatPrice(basePrice)}</span>
+                                <span class="text-[10px] font-bold text-[#27C96B] bg-[#27C96B]/15 px-1.5 py-0.5 rounded">SS</span>
+                                <span class="text-[11px] text-gray-500 line-through">${formatPrice(product.oldPrice)}</span>
+                            </div>
+                            <div class="mt-1">
+                                <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md border ${programBadgeClass}">
+                                    ${programLabel}
+                                </span>
+                            </div>
+                            <p onclick="openProductModal(${product.id})" class="text-xs text-gray-200 leading-snug line-clamp-2 mt-1 cursor-pointer">
+                                ${product.title}
+                            </p>
+                        </div>
+
+                        <div class="mt-2">
+                            <div class="flex items-center justify-between text-[11px] text-gray-400 mb-1.5">
+                                <span>★ <strong class="text-gray-200">${product.rating.toFixed(1)}</strong> (16)</span>
+                                <span class="truncate ml-1">${(product.colors || []).length} цв. • ${(product.storages || []).length} ГБ</span>
+                            </div>
+                            <button onclick="openProductModal(${product.id})" class="w-full py-2 rounded-xl ${inCartQty > 0 ? 'bg-[#251E40] text-[#2EE59D] border border-[#2EE59D]/30' : 'bg-[#252529] hover:bg-[#303036] text-white'} text-xs font-bold btn-spring">
+                                ${inCartQty > 0 ? `В корзине (${inCartQty})` : 'Выбрать цвет / ГБ'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts() {
+            const list = getFilteredProducts();
+            const grid = document.getElementById('products-grid');
+            document.getElementById('catalog-count').textContent = `${list.length} товаров`;
+            if (!list.length) {
+                grid.innerHTML = `<div class="col-span-2 text-center py-10 text-xs text-gray-400">Ничего не найдено. Попробуйте другой запрос или категорию.</div>`;
+                return;
+            }
+            grid.innerHTML = list.map((p, idx) => createProductCard(p, idx)).join('');
+            lucide.createIcons();
+        }
+
+        function toggleFavorite(id) {
+            const idx = state.favorites.indexOf(id);
+            if (idx >= 0) {
+                state.favorites.splice(idx, 1);
+                showToast('Убрано из избранного');
+            } else {
+                state.favorites.push(id);
+                showToast('Добавлено в избранное');
+            }
+            updateBadges();
+            renderProducts();
+            if (state.currentTab === 'favorites') renderFavorites();
+        }
+
+        function renderFavorites() {
+            const favItems = PRODUCTS.filter(p => state.favorites.includes(p.id));
+            const grid = document.getElementById('favorites-grid');
+            const empty = document.getElementById('favorites-empty');
+            document.getElementById('fav-count-label').textContent = `${favItems.length} товаров`;
+            if (!favItems.length) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                empty.classList.add('flex');
+            } else {
+                empty.classList.add('hidden');
+                empty.classList.remove('flex');
+                grid.innerHTML = favItems.map((p, idx) => createProductCard(p, idx)).join('');
+            }
+            lucide.createIcons();
+        }
+
+        function addToCart(id, customColor = null, customStorage = null) {
+            const product = PRODUCTS.find(p => p.id === id);
+            if (!product) return;
+            const colorName = customColor || (product.colors && product.colors[0] ? product.colors[0].name : 'Стандарт');
+            const storageObj = customStorage || (product.storages && product.storages[0] ? product.storages[0] : { label: 'Базовый', addPrice: 0 });
+            const unitPrice = getProductPrice(product, storageObj);
+
+            const existing = state.cart.find(i => i.id === id && i.color === colorName && i.storage === storageObj.label);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                state.cart.push({ id, qty: 1, color: colorName, storage: storageObj.label, unitPrice });
+            }
+            updateBadges();
+            renderProducts();
+            if (state.currentTab === 'cart') renderCart();
+            showToast(`Добавлено: ${colorName}, ${storageObj.label}`);
+        }
+
+        function updateCartQty(index, delta) {
+            if (!state.cart[index]) return;
+            state.cart[index].qty += delta;
+            if (state.cart[index].qty <= 0) state.cart.splice(index, 1);
+            updateBadges();
+            renderProducts();
+            renderCart();
+        }
+
+        function selectPaymentMethod(method) {
+            state.paymentMethod = method;
+            const cryptoCard = document.getElementById('pay-card-crypto');
+            const rubCard = document.getElementById('pay-card-rub');
+            const rubBox = document.getElementById('rub-contact-box');
+            if (method === 'crypto') {
+                cryptoCard.classList.add('border-2', 'border-purple-400');
+                cryptoCard.classList.remove('border', 'border-white/10');
+                rubCard.classList.remove('border-2', 'border-purple-400');
+                rubCard.classList.add('border', 'border-white/10');
+                rubBox.classList.add('hidden');
+            } else {
+                rubCard.classList.add('border-2', 'border-purple-400');
+                rubCard.classList.remove('border', 'border-white/10');
+                cryptoCard.classList.remove('border-2', 'border-purple-400');
+                cryptoCard.classList.add('border', 'border-white/10');
+                rubBox.classList.remove('hidden');
+            }
+        }
+
+        function selectCryptoAsset(asset) {
+            state.cryptoAsset = asset;
+            document.querySelectorAll('.crypto-pill').forEach(btn => {
+                const active = btn.dataset.crypto === asset;
+                btn.className = active
+                    ? 'crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-extrabold bg-purple-500 text-white border border-purple-300/40 btn-spring'
+                    : 'crypto-pill py-1.5 px-2 rounded-xl text-[11px] font-bold bg-[#1D1833] text-gray-300 border border-white/10 btn-spring';
+            });
+            renderCart();
+        }
+
+        function copyCryptoAddress() {
+            const addr = 'UQBWTp6_C_erFq9J_nFeLH6LqW_n2jPnfgp9ijUA7IkuAkIF';
+            const el = document.createElement('textarea');
+            el.value = addr;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('Кошелёк скопирован');
+        }
+
+        function applyPromo() {
+            const code = (document.getElementById('promo-input').value || '').trim().toUpperCase();
+            const statusEl = document.getElementById('promo-status');
+            if (code === 'SMART1') {
+                state.promoDiscount = 150;
+                statusEl.textContent = 'Промокод SMART1 применён: скидка 150 ₽';
+                statusEl.classList.remove('hidden');
+                renderCart();
+                showToast('Промокод SMART1 применён');
+            } else {
+                state.promoDiscount = 0;
+                statusEl.textContent = 'Доступный промокод: SMART1';
+                statusEl.classList.remove('hidden');
+                renderCart();
+            }
+        }
+
+        function generateOrderNumber() {
+            const rand = Math.floor(100000 + Math.random() * 900000);
+            return `SS-${rand}`;
+        }
+
+        function formatEstimatedArrival() {
+            const d1 = new Date(Date.now() + 2 * 86400000);
+            const d2 = new Date(Date.now() + 4 * 86400000);
+            const opts = { day: 'numeric', month: 'long' };
+            return `${d1.toLocaleDateString('ru-RU', opts)} — ${d2.toLocaleDateString('ru-RU', opts)}`;
+        }
+
+        function checkoutOrder() {
+            if (!state.cart.length) {
+                showToast('Корзина пуста');
+                return;
+            }
+            if (!(state.pvzAddress || '').trim()) {
+                showToast('Укажите адрес ПВЗ');
+                openPvzModal();
+                return;
+            }
+            if (!document.getElementById('agree-terms-checkbox').checked) {
+                showToast('Подтвердите согласие с условиями и ПВЗ');
+                return;
+            }
+            if (state.paymentMethod === 'crypto') {
+                const txid = (document.getElementById('txid-input').value || '').trim();
+                if (!txid) {
+                    showToast('Укажите TXID или выберите оплату через @Smart_Split');
+                    return;
+                }
+            }
+
+            let subtotal = 0;
+            const summaryParts = [];
+            state.cart.forEach(item => {
+                const p = PRODUCTS.find(prod => prod.id === item.id);
+                if (!p) return;
+                const price = item.unitPrice || getProductPrice(p);
+                subtotal += price * item.qty;
+                summaryParts.push(`${p.title.split(',')[0]} (${item.color}, ${item.storage}) × ${item.qty}`);
+            });
+
+            const orderNumber = generateOrderNumber();
+            const pvzFull = `${state.pvzProvider === 'WB' ? 'ПВЗ WB' : 'ПВЗ Яндекс Маркет'}: ${state.pvzAddress}`;
+            const etaRange = formatEstimatedArrival();
+
+            const newOrder = {
+                orderNumber,
+                itemsText: summaryParts.join(', '),
+                totalRub: Math.max(1, subtotal - state.promoDiscount),
+                pvz: pvzFull,
+                etaDates: `${etaRange} (точное время и дату прибытия, а также все скриншоты можно уточнить у менеджера @Smart_Split)`,
+                status: 'Принят в обработку'
+            };
+
+            state.orders.unshift(newOrder);
+            state.cart = [];
+            state.promoDiscount = 0;
+            trackShopEvent(`Оформил заказ ${orderNumber} на ${formatPrice(newOrder.totalRub)}`, true);
+            updateBadges();
+            renderProducts();
+            renderCart();
+
+            const trackInp = document.getElementById('track-order-input');
+            if (trackInp) {
+                trackInp.value = orderNumber;
+                lookupOrderByNumber();
+            }
+            showToast(`Заказ ${orderNumber} оформлен!`);
+        }
+
+        function lookupOrderByNumber() {
+            const code = (document.getElementById('track-order-input').value || '').trim().toUpperCase();
+            const resBox = document.getElementById('track-order-result');
+            if (!code) {
+                showToast('Введите номер заказа');
+                return;
+            }
+            const found = state.orders.find(o => o.orderNumber.toUpperCase() === code);
+            resBox.classList.remove('hidden');
+            if (!found) {
+                resBox.innerHTML = `
+                    <div class="text-rose-300 font-bold">Заказ ${code.replace(/[<>&]/g, '')} не найден в локальной сессии.</div>
+                    <div class="text-gray-300">Уточните статус, дату и скриншоты по вашему заказу напрямую у менеджера <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="text-[#2EE59D] font-bold underline">@Smart_Split</a>. Приятных покупок!</div>
+                `;
+                return;
+            }
+            resBox.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="font-extrabold text-[#2EE59D]">Заказ ${found.orderNumber}</span>
+                    <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-200 text-[10px] font-bold">${found.status}</span>
+                </div>
+                <div class="text-white font-semibold">Состав: ${found.itemsText}</div>
+                <div class="text-gray-300">Куда придёт: <span class="text-white">${found.pvz}</span></div>
+                <div class="text-gray-300">Когда придёт: <span class="text-purple-200">${found.etaDates}</span></div>
+                <div class="text-gray-300 pt-1 border-t border-white/10">
+                    Все точные данные, время прибытия и скриншоты выкупа вам подскажет менеджер <a href="https://t.me/Smart_Split" target="_blank" rel="noopener" class="text-[#2EE59D] font-bold underline">@Smart_Split</a>. Приятных покупок!
+                </div>
+            `;
+        }
+
+        function renderOrdersHistory() {
+            const list = document.getElementById('orders-history-list');
+            if (!list) return;
+            if (!state.orders.length) {
+                list.innerHTML = '';
+                return;
+            }
+            list.innerHTML = state.orders.map(o => `
+                <div class="bg-[#141024] border border-white/10 rounded-2xl p-3 text-xs space-y-1">
+                    <div class="flex items-center justify-between">
+                        <button type="button" onclick="document.getElementById('track-order-input').value='${o.orderNumber}'; lookupOrderByNumber();" class="font-extrabold text-[#2EE59D] hover:underline">
+                            № ${o.orderNumber} (пробить)
+                        </button>
+                        <span class="text-gray-400 font-bold">${formatPrice(o.totalRub)}</span>
+                    </div>
+                    <div class="text-gray-200 truncate">${o.itemsText}</div>
+                    <div class="text-[11px] text-gray-400 truncate">${o.pvz}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderCart() {
+            const emptyEl = document.getElementById('cart-empty');
+            const filledEl = document.getElementById('cart-filled');
+            const listEl = document.getElementById('cart-items-list');
+
+            if (!state.cart.length) {
+                emptyEl.classList.remove('hidden');
+                emptyEl.classList.add('flex');
+                filledEl.classList.add('hidden');
+                document.getElementById('cart-count-title').textContent = '0 шт.';
+                return;
+            }
+
+            emptyEl.classList.add('hidden');
+            emptyEl.classList.remove('flex');
+            filledEl.classList.remove('hidden');
+
+            let subtotal = 0;
+            let oldTotal = 0;
+            let count = 0;
+
+            listEl.innerHTML = state.cart.map((item, idx) => {
+                const p = PRODUCTS.find(prod => prod.id === item.id);
+                if (!p) return '';
+                const unitPrice = item.unitPrice || getProductPrice(p);
+                subtotal += unitPrice * item.qty;
+                oldTotal += p.oldPrice * item.qty;
+                count += item.qty;
+                return `
+                    <div class="bg-[#1B162E] p-3.5 rounded-3xl flex gap-3 items-center border border-purple-400/15 animate-fade-in">
+                        <img src="${p.img}" alt="${p.title}" data-fallback="${p.fallback}" onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback;}" class="w-16 h-16 rounded-2xl bg-[#141024] object-cover shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold text-white truncate">${p.title}</p>
+                            <p class="text-[11px] text-purple-300 mt-0.5">${item.color} • ${item.storage}</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="font-extrabold text-base text-white">${formatPrice(unitPrice * item.qty)}</span>
+                                <div class="flex items-center gap-2 bg-[#272042] rounded-full px-2 py-1">
+                                    <button onclick="updateCartQty(${idx}, -1)" class="w-6 h-6 rounded-full bg-[#181429] flex items-center justify-center text-gray-300 font-bold btn-spring">−</button>
+                                    <span class="text-xs font-bold min-w-[16px] text-center">${item.qty}</span>
+                                    <button onclick="updateCartQty(${idx}, 1)" class="w-6 h-6 rounded-full bg-[#181429] flex items-center justify-center text-white font-bold btn-spring">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const finalTotal = Math.max(1, subtotal - state.promoDiscount);
+            const conv = formatCryptoConversions(finalTotal);
+            const activeAsset = state.cryptoAsset || 'USDT';
+            const activeVal = activeAsset === 'USDT' ? conv.usdt : activeAsset === 'TON' ? conv.ton : activeAsset === 'BTC' ? conv.btc : conv.sol;
+
+            document.getElementById('cart-count-title').textContent = `${count} шт.`;
+            document.getElementById('cart-items-subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('cart-savings').textContent = `-${formatPrice(oldTotal - finalTotal)}`;
+            document.getElementById('cart-final-total').textContent = formatPrice(finalTotal);
+            document.getElementById('crypto-selected-name').textContent = activeAsset;
+            document.getElementById('cart-crypto-amount').textContent = `${activeVal} ${activeAsset}`;
+            document.getElementById('crypto-all-conversions').textContent = conv.summary;
+            renderOrdersHistory();
+            lucide.createIcons();
+        }
+
+        function updateBadges() {
+            const favBadge = document.getElementById('nav-fav-badge');
+            const cartBadge = document.getElementById('nav-cart-badge');
+            const totalQty = state.cart.reduce((s, i) => s + i.qty, 0);
+
+            favBadge.textContent = state.favorites.length;
+            favBadge.classList.toggle('hidden', state.favorites.length === 0);
+
+            cartBadge.textContent = totalQty;
+            cartBadge.classList.toggle('hidden', totalQty === 0);
+
+            document.getElementById('profile-orders-badge').textContent = state.orders.length;
+        }
+        function openProfileModal() {
+            document.getElementById('tg-name-input').value = state.tgUser.name;
+            document.getElementById('tg-handle-input').value = state.tgUser.handle;
+            document.getElementById('tg-avatar-input').value = state.tgUser.avatar.startsWith('data:') ? '' : state.tgUser.avatar;
+            const modal = document.getElementById('profile-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profile-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveTelegramProfile() {
+            const rawName = (document.getElementById('tg-name-input').value || '').trim();
+            const rawHandle = (document.getElementById('tg-handle-input').value || '').trim();
+            const rawAvatar = (document.getElementById('tg-avatar-input').value || '').trim();
+
+            const cleanHandle = rawHandle ? (rawHandle.startsWith('@') ? rawHandle : '@' + rawHandle) : '@telegram_user';
+            const cleanName = rawName || cleanHandle.replace('@', '');
+            const avatarUrl = rawAvatar || makeTgAvatarFallback(cleanHandle);
+
+            state.tgUser = { name: cleanName, handle: cleanHandle, avatar: avatarUrl };
+            applyTelegramProfileUI();
+            closeProfileModal();
+            showToast('Профиль Telegram обновлён');
+        }
+
+        function applyTelegramProfileUI() {
+            document.getElementById('tg-profile-name').textContent = state.tgUser.name;
+            document.getElementById('tg-profile-handle').textContent = state.tgUser.handle;
+            const av = document.getElementById('tg-profile-avatar');
+            av.onerror = function() {
+                this.src = makeTgAvatarFallback(state.tgUser.handle);
+            };
+            av.src = state.tgUser.avatar;
+        }
+
+        function updatePvzLabels() {
+            const label = state.pvzProvider === 'WB' ? 'ПВЗ WB' : 'ПВЗ Маркет';
+            const fullTitle = state.pvzProvider === 'WB' ? 'Пункт выдачи Wildberries' : 'Пункт выдачи Яндекс Маркет';
+            document.getElementById('header-pvz-text').textContent = `${label}: ${state.pvzAddress}`;
+            document.getElementById('cart-top-pvz').textContent = `${label}: ${state.pvzAddress}`;
+            document.getElementById('cart-pvz-address').textContent = state.pvzAddress;
+            document.getElementById('cart-delivery-method-title').textContent = fullTitle;
+        }
+
+        function openPvzModal() {
+            const modal = document.getElementById('pvz-modal');
+            document.getElementById('pvz-address-input').value = state.pvzAddress;
+            selectPvzProvider(state.pvzProvider);
+            updateMapFromInput();
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closePvzModal() {
+            const modal = document.getElementById('pvz-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function selectPvzProvider(provider) {
+            state.pvzProvider = provider;
+            const wbBtn = document.getElementById('pvz-btn-wb');
+            const ymBtn = document.getElementById('pvz-btn-ym');
+            if (provider === 'WB') {
+                wbBtn.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-purple-600 text-white btn-spring';
+                ymBtn.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-[#251E40] text-gray-300 btn-spring';
+            } else {
+                ymBtn.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-purple-600 text-white btn-spring';
+                wbBtn.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-[#251E40] text-gray-300 btn-spring';
+            }
+        }
+
+        function updateMapFromInput() {
+            const addr = (document.getElementById('pvz-address-input').value || state.pvzAddress).trim();
+            const q = encodeURIComponent(addr);
+            document.getElementById('pvz-map-frame').src = `https://maps.google.com/maps?q=${q}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+        }
+
+        function savePvzSelection() {
+            const val = (document.getElementById('pvz-address-input').value || '').trim();
+            if (!val) {
+                showToast('Введите адрес пункта выдачи');
+                return;
+            }
+            state.pvzAddress = val;
+            updatePvzLabels();
+            closePvzModal();
+            showToast('ПВЗ сохранён');
+        }
+
+        function editTelegramProfile() {
+            const nextHandle = prompt('Введите ваш @username в Telegram:', state.tgUser.handle);
+            if (nextHandle && nextHandle.trim()) {
+                const clean = nextHandle.trim().startsWith('@') ? nextHandle.trim() : '@' + nextHandle.trim();
+                state.tgUser.handle = clean;
+                state.tgUser.name = `TG • ${clean}`;
+                document.getElementById('tg-profile-name').textContent = state.tgUser.name;
+                document.getElementById('tg-profile-handle').textContent = `Telegram • ${clean}`;
+                showToast('Ник Telegram обновлён');
+            }
+        }
+
+        function openProductModal(id) {
+            const product = PRODUCTS.find(p => p.id === id);
+            if (!product) return;
+            state.analytics.viewsToday += 1;
+            trackShopEvent(`Смотрит карточку: ${product.title.split(',')[0]}`, false);
+            selectedModalProduct = product;
+            selectedModalColor = (product.colors && product.colors[0]) || null;
+            selectedModalStorage = (product.storages && product.storages[0]) || { label: 'Базовый', addPrice: 0 };
+
+            const modal = document.getElementById('product-modal');
+            const imgEl = document.getElementById('modal-img');
+            imgEl.dataset.fallback = product.fallback;
+            imgEl.onerror = function() {
+                if (this.src !== this.dataset.fallback) this.src = this.dataset.fallback;
+            };
+            imgEl.src = product.img;
+
+            document.getElementById('modal-discount-badge').textContent = product.discount;
+            document.getElementById('modal-rating').textContent = product.rating.toFixed(1);
+            document.getElementById('modal-title').textContent = product.title;
+            document.getElementById('modal-old-price').textContent = formatPrice(product.oldPrice);
+            document.getElementById('modal-discount-text').textContent = product.discount;
+            document.getElementById('modal-desc').textContent = `${product.desc} ${product.specs}`;
+
+            function refreshVariantButtons() {
+                const currentPrice = getProductPrice(product, selectedModalStorage);
+                document.getElementById('modal-selected-color-label').textContent = selectedModalColor ? selectedModalColor.name : 'Стандарт';
+                document.getElementById('modal-selected-storage-label').textContent = selectedModalStorage ? selectedModalStorage.label : 'Базовый';
+                document.getElementById('modal-price').textContent = formatPrice(currentPrice);
+                document.getElementById('modal-split-sub').textContent = formatPrice(currentPrice);
+
+                document.getElementById('modal-colors-list').innerHTML = (product.colors || []).map(c => {
+                    const active = selectedModalColor && selectedModalColor.name === c.name;
+                    return `
+                        <button type="button" onclick="pickModalColor('${c.name.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 border btn-spring ${active ? 'bg-purple-500/20 border-purple-400 text-white' : 'bg-[#141416] border-white/10 text-gray-300'}">
+                            <span class="w-3.5 h-3.5 rounded-full border border-white/30" style="background:${c.hex}"></span>
+                            <span>${c.name}</span>
+                        </button>
+                    `;
+                }).join('');
+
+                document.getElementById('modal-storage-list').innerHTML = (product.storages || []).map(s => {
+                    const active = selectedModalStorage && selectedModalStorage.label === s.label;
+                    return `
+                        <button type="button" onclick="pickModalStorage('${s.label.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-xl text-xs font-bold border btn-spring ${active ? 'bg-[#2EE59D]/15 border-[#2EE59D] text-[#2EE59D]' : 'bg-[#141416] border-white/10 text-gray-300'}">
+                            <span>${s.label}</span>
+                            ${s.addPrice > 0 ? `<span class="text-[10px] opacity-80 ml-1">+${formatPrice(s.addPrice)}</span>` : ''}
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            window.pickModalColor = function(colorName) {
+                const found = (product.colors || []).find(c => c.name === colorName);
+                if (!found) return;
+                selectedModalColor = found;
+                const dynFallback = makePhotoFallback(`${product.title.split(',')[0]} ${found.name}`, found.bg || '#1F2937', found.accent || '#2EE59D', 'SS', product.shape || 'phone');
+                imgEl.dataset.fallback = dynFallback;
+                imgEl.src = dynFallback;
+                refreshVariantButtons();
+            };
+
+            window.pickModalStorage = function(storageLabel) {
+                const found = (product.storages || []).find(s => s.label === storageLabel);
+                if (!found) return;
+                selectedModalStorage = found;
+                refreshVariantButtons();
+            };
+
+            refreshVariantButtons();
+
+            const reviews = getReviewsForProduct(product);
+            document.getElementById('modal-reviews-count-top').textContent = `${reviews.length} отзывов`;
+            document.getElementById('modal-reviews-badge').textContent = `${reviews.length} отзывов`;
+            document.getElementById('modal-reviews-list').innerHTML = reviews.map(rev => `
+                <div class="bg-[#252528] border border-white/5 rounded-2xl p-3">
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                        <span class="font-bold text-xs text-white truncate">${rev.author} • <span class="text-purple-300">${rev.pvzType}</span></span>
+                        <span class="text-[10px] text-gray-400 shrink-0">${rev.time}</span>
+                    </div>
+                    <div class="text-amber-400 text-[11px] mb-1">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</div>
+                    <p class="text-xs text-gray-300 leading-relaxed">${rev.text}</p>
+                </div>
+            `).join('');
+
+            const isFav = state.favorites.includes(product.id);
+            const favBtn = document.getElementById('modal-fav-btn');
+            favBtn.onclick = function() {
+                toggleFavorite(product.id);
+                const nowFav = state.favorites.includes(product.id);
+                favBtn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 ${nowFav ? 'fill-[#FF4B2B] text-[#FF4B2B]' : 'text-white'}"></i>`;
+                lucide.createIcons();
+            };
+            favBtn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 ${isFav ? 'fill-[#FF4B2B] text-[#FF4B2B]' : 'text-white'}"></i>`;
+
+            document.getElementById('modal-add-cart').onclick = function() {
+                addToCart(product.id, selectedModalColor ? selectedModalColor.name : null, selectedModalStorage);
+            };
+
+            document.getElementById('modal-buy-now').onclick = function() {
+                addToCart(product.id, selectedModalColor ? selectedModalColor.name : null, selectedModalStorage);
+                closeProductModal();
+                switchTab('cart');
+            };
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex', 'animate-modal-in');
+            modal.scrollTop = 0;
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex', 'animate-modal-in');
+        }
+
+        function openAiAssistant() {
+            const modal = document.getElementById('ai-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeAiAssistant() {
+            const modal = document.getElementById('ai-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function sendAiMessage() {
+            const input = document.getElementById('ai-input');
+            const msg = (input.value || '').trim();
+            if (!msg) return;
+            const box = document.getElementById('ai-messages');
+
+            box.innerHTML += `<div class="bg-purple-600/30 border border-purple-400/30 rounded-2xl p-2.5 text-white ml-8">${msg.replace(/[<>&]/g, '')}</div>`;
+            input.value = '';
+
+            const q = msg.toLowerCase();
+            let reply = 'Я помогаю только по товарам каталога, выбору цвета и ГБ внутри карточки, доставке в ПВЗ и оплате (криптовалюта или перевод через @Smart_Split).';
+            if (q.includes('цвет') || q.includes('гб') || q.includes('память') || q.includes('iphone')) {
+                reply = 'Каждая модель представлена одной карточкой: откройте товар и выберите цвет и объём памяти/комплектацию внутри карточки перед добавлением в корзину.';
+            } else if (q.includes('оплат') || q.includes('крипт') || q.includes('ton') || q.includes('usdt') || q.includes('сплит') || q.includes('wb')) {
+                reply = 'Оформление идёт через наши аккаунты Сплит и оплату частями WB. В корзине можно оплатить криптовалютой (USDT, TON, BTC, SOL — пересчёт идёт сразу) на кошелёк UQBWTp6_C_erFq9J_nFeLH6LqW_n2jPnfgp9ijUA7IkuAkIF либо связаться с менеджером @Smart_Split.';
+            } else if (q.includes('пвз') || q.includes('доставк') || q.includes('карт')) {
+                reply = 'Доставка доступна в ПВЗ Wildberries и Яндекс Маркет. Укажите точный адрес ПВЗ и проверьте его на карте в разделе доставки или в профиле.';
+            }
+
+            box.innerHTML += `<div class="bg-[#242429] rounded-2xl p-2.5 text-gray-200 mr-6 leading-relaxed">${reply}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        window.onload = function() {
+            // Если приложение открыто внутри Telegram WebApp — подтягиваем имя, ник и аватарку пользователя автоматически
+            const tgWebUser = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user;
+            if (tgWebUser) {
+                const fullName = [tgWebUser.first_name, tgWebUser.last_name].filter(Boolean).join(' ') || tgWebUser.username || 'Telegram';
+                const uname = tgWebUser.username ? '@' + tgWebUser.username : fullName;
+                state.tgUser = {
+                    name: fullName,
+                    handle: uname,
+                    avatar: tgWebUser.photo_url || makeTgAvatarFallback(uname)
+                };
+            }
+            document.getElementById('welcome-models-count').textContent = `${PRODUCTS.length} моделей в каталоге`;
+            applyTelegramProfileUI();
+            renderProducts();
+            updateBadges();
+            updatePvzLabels();
+            renderOrdersHistory();
+            trackShopEvent('Зашёл на стартовый экран SmartSplit', false);
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
